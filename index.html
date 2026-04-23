@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Muklis | IT Student Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-cyan': '#00f3ff',
+                        'neon-purple': '#bc13fe',
+                        'neon-pink': '#ff00e0',
+                        'dark-void': '#020205',
+                        'dark-card': '#0a0a12',
+                        'neon-green': '#39ff14'
+                    },
+                    fontFamily: {
+                        'mono': ['Fira Code', 'monospace'],
+                        'heading': ['Orbitron', 'sans-serif'],
+                        'body': ['Rajdhani', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 15px rgba(0, 243, 255, 0.4)',
+                        'neon-pink': '0 0 15px rgba(255, 0, 224, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #020205;
+            color: #e2e8f0;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .neon-border-cyan {
+            border: 1px solid #00f3ff;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        .typed-cursor {
+            color: #00f3ff;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .glass-sidebar {
+            background: rgba(10, 10, 18, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(0, 243, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: #00f3ff;
+            background: rgba(0, 243, 255, 0.05);
+            border-right: 3px solid #00f3ff;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #020205; }
+        ::-webkit-scrollbar-thumb { background: #00f3ff; border-radius: 10px; }
+
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="selection:bg-neon-cyan selection:text-black">
+
+    <!-- Mobile Toggle -->
+    <button id="mobile-nav-toggle" class="fixed top-4 right-4 z-[1000] bg-dark-card border border-neon-cyan text-neon-cyan w-12 h-12 rounded flex items-center justify-center xl:hidden">
+        <i class="fa-solid fa-terminal"></i>
+    </button>
+
+    <!-- Sidebar Navigasi -->
+    <header id="sidebar" class="fixed top-0 left-0 bottom-0 w-[280px] z-[99] glass-sidebar transform -translate-x-full xl:translate-x-0 transition-transform duration-300">
+        <div class="h-full flex flex-col justify-between py-10">
+            <div>
+                <div class="flex flex-col items-center mb-10">
+                    <div class="relative p-1 rounded-full bg-gradient-to-tr from-neon-cyan to-neon-purple mb-4 shadow-neon-cyan">
+                        <!-- Update Foto Profil ke muklis.png -->
+                        <img src="muklis.png" onerror="this.src='https://ui-avatars.com/api/?name=M+Muklis&background=0a0a12&color=00f3ff&size=128'" alt="M. Muklis" class="w-28 h-28 rounded-full object-cover border-2 border-dark-void">
+                    </div>
+                    <h1 class="text-xl font-heading font-bold text-white tracking-widest uppercase text-center px-2">M. Muklis</h1>
+                    <p class="text-neon-cyan text-xs font-mono mt-2 text-center">&lt; IT_STUDENT /&gt;</p>
+                </div>
+
+                <nav class="font-body text-lg">
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="#hero" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
+                                <i class="fa-solid fa-house w-8 group-hover:neon-text-cyan"></i> <span>HOME</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
+                                <i class="fa-solid fa-user-gear w-8"></i> <span>ABOUT_SYSTEM</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#projects" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
+                                <i class="fa-solid fa-code w-8"></i> <span>DEPLOYMENTS</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#pendidikan" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
+                                <i class="fa-solid fa-graduation-cap w-8"></i> <span>EDUCATION_LOG</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
+                                <i class="fa-solid fa-link w-8"></i> <span>ESTABLISH_LINK</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="px-8">
+                <div class="flex justify-around mb-6">
+                    <a href="https://github.com/muklis111" target="_blank" class="text-gray-500 hover:text-neon-cyan transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                    <a href="https://wa.me/6285222373394" target="_blank" class="text-gray-500 hover:text-neon-green transition-colors"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-neon-pink transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                </div>
+                <p class="text-[10px] font-mono text-gray-600 text-center uppercase tracking-tighter">System Version: 2.5.0-stable</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="xl:ml-[280px]">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden grid-bg">
+            <div class="absolute top-10 left-10 w-32 h-32 border-l border-t border-neon-cyan opacity-20 hidden md:block"></div>
+            <div class="absolute bottom-10 right-10 w-32 h-32 border-r border-b border-neon-purple opacity-20 hidden md:block"></div>
+
+            <div class="relative z-10 text-center px-6">
+                <p class="font-mono text-neon-cyan mb-4 tracking-[0.3em] uppercase animate-pulse">Initializing Interface...</p>
+                <h1 class="text-5xl md:text-8xl font-heading font-black text-white mb-6 tracking-tighter">
+                    M.<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple">MUKLIS</span>
+                </h1>
+                <div class="font-mono text-xl md:text-2xl text-gray-400">
+                    $ <span id="typed-text" class="text-neon-cyan"></span><span class="typed-cursor">_</span>
+                </div>
+                <div class="mt-12 flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#projects" class="px-8 py-3 bg-transparent border border-neon-cyan text-neon-cyan font-heading uppercase tracking-widest hover:bg-neon-cyan hover:text-black transition-all duration-300 shadow-neon-cyan">Launch Projects</a>
+                    <a href="#contact" class="px-8 py-3 bg-transparent border border-neon-purple text-neon-purple font-heading uppercase tracking-widest hover:bg-neon-purple hover:text-white transition-all duration-300">Establish Connection</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 px-8 md:px-16 lg:px-24">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center mb-12">
+                    <h2 class="text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">About_System</h2>
+                    <div class="h-px flex-grow bg-gradient-to-r from-neon-cyan to-transparent"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="md:col-span-2 space-y-6">
+                        <p class="font-body text-xl text-gray-300 leading-relaxed italic">
+                            "Mahasiswa IT di <span class="text-neon-cyan">Universitas Jabal Ghafur</span> yang berdedikasi tinggi dalam pengembangan platform digital dan sistem berbasis web."
+                        </p>
+                        <div class="p-6 bg-dark-card border-l-4 border-neon-purple rounded-r-lg">
+                            <p class="text-gray-400 font-mono text-sm leading-relaxed">
+                                > Status: Developing_Innovation<br>
+                                > Core: Web_Development, System_Analysis<br>
+                                > Location: Sigli, Aceh
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-slate-800 p-6 rounded-lg font-mono text-xs shadow-neon-cyan/5">
+                        <h4 class="text-neon-cyan mb-4 border-b border-slate-800 pb-2 uppercase text-center">System Stats</h4>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between"><span>Problem_Solving</span><span class="text-neon-cyan">85%</span></li>
+                            <li class="flex justify-between"><span>Web_Development</span><span class="text-neon-cyan">92%</span></li>
+                            <li class="flex justify-between"><span>Fast_Learning</span><span class="text-neon-cyan">95%</span></li>
+                            <li class="flex justify-between"><span>Logic_Thinking</span><span class="text-neon-cyan">88%</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 px-8 md:px-16 lg:px-24 bg-dark-card/30">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex items-center mb-16">
+                    <h2 class="text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Active_Deployments</h2>
+                    <div class="h-px flex-grow bg-gradient-to-r from-neon-pink to-transparent"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Project 1: Platform M. MUKLIS -->
+                    <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-cyan transition-all duration-500 shadow-xl">
+                        <div class="aspect-video bg-slate-900 relative">
+                            <div class="absolute inset-0 flex items-center justify-center flex-col p-8 text-center">
+                                <i class="fa-solid fa-user-gear text-5xl text-neon-cyan mb-4 opacity-50 group-hover:scale-110 transition-transform"></i>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-2">Platform M. MUKLIS</h3>
+                                <p class="text-gray-500 font-body text-sm">Personal Digital Integration Platform</p>
+                            </div>
+                            <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <a href="https://muklis111.github.io/platform-M.MUKLIS/" target="_blank" class="px-6 py-3 bg-neon-cyan text-black font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white transition-colors">
+                                    <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Access Link
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-slate-800">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">HTML5</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">CSS3</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">JavaScript</span>
+                            </div>
+                            <p class="text-gray-400 text-sm font-body">Pusat integrasi identitas digital dan portofolio interaktif yang dikembangkan secara personal.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Platform Web Geuchik -->
+                    <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-purple transition-all duration-500 shadow-xl">
+                        <div class="aspect-video bg-slate-900 relative">
+                            <div class="absolute inset-0 flex items-center justify-center flex-col p-8 text-center">
+                                <i class="fa-solid fa-landmark text-5xl text-neon-purple mb-4 opacity-50 group-hover:scale-110 transition-transform"></i>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-2">Web Geuchik</h3>
+                                <p class="text-gray-500 font-body text-sm">Village Governance Management Solution</p>
+                            </div>
+                            <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <a href="https://muklis111.github.io/platformwebgeuchik/" target="_blank" class="px-6 py-3 bg-neon-purple text-white font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white hover:text-black transition-colors shadow-neon-purple">
+                                    <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Access Link
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-slate-800">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Public Service</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Tailwind</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Digital Governance</span>
+                            </div>
+                            <p class="text-gray-400 text-sm font-body">Solusi platform web untuk manajemen administrasi dan pelayanan publik tingkat desa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="pendidikan" class="py-24 px-8 md:px-16 lg:px-24 bg-dark-card/10 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="flex items-center mb-12">
+                    <h2 class="text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Education_Log</h2>
+                    <div class="h-px flex-grow bg-gradient-to-r from-neon-purple to-transparent"></div>
+                </div>
+
+                <div class="space-y-0 border-l border-neon-cyan/20 ml-4">
+                    <!-- Kuliah -->
+                    <div class="relative pl-12 pb-12 group">
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-cyan rounded-full -left-[8px] top-0 group-hover:bg-neon-cyan transition-colors shadow-neon-cyan"></div>
+                        <span class="font-mono text-neon-cyan text-sm tracking-tighter">[ 2022 - SEKARANG ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1">Universitas Jabal Ghafur</h3>
+                        <p class="text-neon-purple font-mono text-sm uppercase mt-1">S1 Teknik Informatika</p>
+                        <p class="text-gray-500 mt-4 max-w-xl font-body">Sedang menempuh pendidikan tinggi dengan fokus pada pengembangan sistem informasi dan rekayasa perangkat lunak.</p>
+                    </div>
+
+                    <!-- SMK -->
+                    <div class="relative pl-12 pb-12 group">
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-purple rounded-full -left-[8px] top-0 group-hover:bg-neon-purple transition-colors shadow-neon-purple"></div>
+                        <span class="font-mono text-neon-purple text-sm tracking-tighter">[ JENJANG MENENGAH ATAS ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1">SMK Al Fitri Beureunuen</h3>
+                        <p class="text-gray-400 font-mono text-sm uppercase mt-1">Sekolah Menengah Kejuruan</p>
+                        <p class="text-gray-500 mt-4 max-w-xl font-body">Mengembangkan dasar-dasar keahlian teknis dan kedisiplinan di lingkungan pendidikan kejuruan.</p>
+                    </div>
+
+                    <!-- MTSN -->
+                    <div class="relative pl-12 pb-12 group">
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-pink rounded-full -left-[8px] top-0 group-hover:bg-neon-pink transition-colors shadow-neon-pink"></div>
+                        <span class="font-mono text-neon-pink text-sm tracking-tighter">[ JENJANG MENENGAH PERTAMA ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1">MTsN 6 Pidie</h3>
+                        <p class="text-gray-400 font-mono text-sm uppercase mt-1">Madrasah Tsanawiyah Negeri</p>
+                    </div>
+
+                    <!-- MIN -->
+                    <div class="relative pl-12 pb-12 group">
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-cyan rounded-full -left-[8px] top-0 group-hover:bg-neon-cyan transition-colors shadow-neon-cyan"></div>
+                        <span class="font-mono text-neon-cyan text-sm tracking-tighter">[ JENJANG DASAR ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1">MIN 7 Pidie</h3>
+                        <p class="text-gray-400 font-mono text-sm uppercase mt-1">Madrasah Ibtidaiyah Negeri</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-8 md:px-16 lg:px-24 bg-dark-card/50">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-5xl font-heading font-black text-white mb-6 uppercase">Establish_Link</h2>
+                <p class="text-gray-400 font-mono mb-12 italic">"Ready to integrate new projects or system collaborations."</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="mailto:mukhlismukklis2@gmail.com" class="p-6 border border-slate-800 bg-dark-void flex items-center justify-center space-x-4 hover:border-neon-cyan group transition-all">
+                        <i class="fa-solid fa-envelope text-neon-cyan"></i>
+                        <span class="text-gray-300 font-mono group-hover:text-white">mukhlismukklis2@gmail.com</span>
+                    </a>
+                    <a href="https://wa.me/6285222373394" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center justify-center space-x-4 hover:border-neon-green group transition-all shadow-neon-green/5">
+                        <i class="fa-brands fa-whatsapp text-neon-green"></i>
+                        <span class="text-gray-300 font-mono group-hover:text-white">085222373394</span>
+                    </a>
+                    <a href="https://github.com/muklis111" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center justify-center space-x-4 hover:border-neon-purple group transition-all md:col-span-2 lg:col-span-1">
+                        <i class="fa-brands fa-github text-neon-purple"></i>
+                        <span class="text-gray-300 font-mono group-hover:text-white">github.com/muklis111</span>
+                    </a>
+                </div>
+
+                <div class="mt-16 pt-16 border-t border-slate-900">
+                    <p class="text-gray-600 font-mono text-[10px] tracking-[0.5em] uppercase">Built with Code & Neon by M. Muklis</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const phrases = [
+            "npm start platform-muklis",
+            "git clone web-geuchik",
+            "while(true) { develop_innovation(); }",
+            "Mahasiswa IT Universitas Jabal Ghafur",
+            "Frontend & Governance Dev Enthusiast"
+        ];
+        
+        let i = 0;
+        let j = 0;
+        let isDeleting = false;
+        const typedTextElement = document.getElementById('typed-text');
+
+        function loop() {
+            const isEnd = !isDeleting && j === phrases[i].length;
+            const isStart = isDeleting && j === 0;
+
+            if (isEnd) {
+                isDeleting = true;
+                setTimeout(loop, 2000);
+                return;
+            }
+
+            if (isStart) {
+                isDeleting = false;
+                i = (i + 1) % phrases.length;
+            }
+
+            typedTextElement.innerHTML = phrases[i].substring(0, j);
+
+            if (isDeleting) {
+                j--;
+            } else {
+                j++;
+            }
+
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(loop, speed);
+        }
+
+        const toggleBtn = document.getElementById('mobile-nav-toggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            const icon = toggleBtn.querySelector('i');
+            icon.classList.toggle('fa-terminal');
+            icon.classList.toggle('fa-xmark');
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        window.onload = loop;
+    </script>
+</body>
+</html>
