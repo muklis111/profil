@@ -34,6 +34,8 @@
                     boxShadow: {
                         'neon-cyan': '0 0 15px rgba(0, 243, 255, 0.4)',
                         'neon-pink': '0 0 15px rgba(255, 0, 224, 0.4)',
+                        'neon-purple': '0 0 15px rgba(188, 19, 254, 0.4)',
+                        'neon-green': '0 0 15px rgba(57, 255, 20, 0.4)',
                     }
                 }
             }
@@ -45,6 +47,7 @@
             background-color: #020205;
             color: #e2e8f0;
             font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
         }
 
         /* Scanline effect */
@@ -53,15 +56,19 @@
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
             z-index: 9999;
             background-size: 100% 4px, 3px 100%;
             pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.35;
         }
 
         .neon-text-cyan {
             text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+        
+        .neon-text-pink {
+            text-shadow: 0 0 10px rgba(255, 0, 224, 0.8), 0 0 20px rgba(255, 0, 224, 0.3);
         }
 
         .neon-border-cyan {
@@ -80,144 +87,214 @@
 
         .glass-sidebar {
             background: rgba(10, 10, 18, 0.95);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(0, 243, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(0, 243, 255, 0.15);
         }
 
         .nav-link.active {
             color: #00f3ff;
-            background: rgba(0, 243, 255, 0.05);
-            border-right: 3px solid #00f3ff;
+            background: rgba(0, 243, 255, 0.08);
+            border-right: 4px solid #00f3ff;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #020205; }
         ::-webkit-scrollbar-thumb { background: #00f3ff; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff00e0; }
 
         .grid-bg {
             background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        .project-card:hover .project-overlay {
-            opacity: 1;
+        .cyber-matrix-grid {
+            mask-image: radial-gradient(ellipse at center, black, transparent 75%);
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body class="selection:bg-neon-cyan selection:text-black">
 
-    <!-- Mobile Toggle -->
-    <button id="mobile-nav-toggle" class="fixed top-4 right-4 z-[1000] bg-dark-card border border-neon-cyan text-neon-cyan w-12 h-12 rounded flex items-center justify-center xl:hidden">
-        <i class="fa-solid fa-terminal"></i>
+    <!-- Mobile Toggle Button -->
+    <button id="mobile-nav-toggle" class="fixed top-4 right-4 z-[1000] bg-dark-card/90 backdrop-blur-md border border-neon-cyan text-neon-cyan w-12 h-12 rounded flex items-center justify-center xl:hidden hover:bg-neon-cyan/10 transition-colors shadow-neon-cyan">
+        <i class="fa-solid fa-terminal text-lg"></i>
     </button>
 
-    <!-- Sidebar Navigasi -->
+    <!-- Sidebar Navigation -->
     <header id="sidebar" class="fixed top-0 left-0 bottom-0 w-[280px] z-[99] glass-sidebar transform -translate-x-full xl:translate-x-0 transition-transform duration-300">
         <div class="h-full flex flex-col justify-between py-10">
             <div>
+                <!-- User Cyber-Profile Card -->
                 <div class="flex flex-col items-center mb-10">
-                    <div class="relative p-1 rounded-full bg-gradient-to-tr from-neon-cyan to-neon-purple mb-4 shadow-neon-cyan">
-                        <!-- Update Foto Profil ke muklis.png -->
+                    <div class="relative p-1 rounded-full bg-gradient-to-tr from-neon-cyan via-neon-purple to-neon-pink mb-4 shadow-neon-cyan">
+                        <!-- Profile Image Frame -->
                         <img src="muklis.png" onerror="this.src='https://ui-avatars.com/api/?name=M+Muklis&background=0a0a12&color=00f3ff&size=128'" alt="M. Muklis" class="w-28 h-28 rounded-full object-cover border-2 border-dark-void">
+                        <div class="absolute bottom-1 right-2 w-4 h-4 bg-neon-green rounded-full border-2 border-dark-card animate-ping"></div>
+                        <div class="absolute bottom-1 right-2 w-4 h-4 bg-neon-green rounded-full border-2 border-dark-card"></div>
                     </div>
                     <h1 class="text-xl font-heading font-bold text-white tracking-widest uppercase text-center px-2">M. Muklis</h1>
-                    <p class="text-neon-cyan text-xs font-mono mt-2 text-center">&lt; IT_STUDENT /&gt;</p>
+                    <p class="text-neon-cyan text-xs font-mono mt-2 text-center flex items-center gap-1.5">
+                        <span class="inline-block w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
+                        &lt; IT_STUDENT /&gt;
+                    </p>
                 </div>
 
+                <!-- Navigation Directory links -->
                 <nav class="font-body text-lg">
                     <ul class="space-y-1">
                         <li>
-                            <a href="#hero" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
-                                <i class="fa-solid fa-house w-8 group-hover:neon-text-cyan"></i> <span>HOME</span>
+                            <a href="#hero" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
+                                <i class="fa-solid fa-house w-8 group-hover:text-neon-cyan"></i> <span>HOME</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#about" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
-                                <i class="fa-solid fa-user-gear w-8"></i> <span>ABOUT_SYSTEM</span>
+                            <a href="#about" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
+                                <i class="fa-solid fa-user-gear w-8 group-hover:text-neon-cyan"></i> <span>ABOUT_SYSTEM</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#projects" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
-                                <i class="fa-solid fa-code w-8"></i> <span>DEPLOYMENTS</span>
+                            <a href="#projects" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
+                                <i class="fa-solid fa-code w-8 group-hover:text-neon-cyan"></i> <span>DEPLOYMENTS</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#pendidikan" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
-                                <i class="fa-solid fa-graduation-cap w-8"></i> <span>EDUCATION_LOG</span>
+                            <a href="#pendidikan" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
+                                <i class="fa-solid fa-graduation-cap w-8 group-hover:text-neon-cyan"></i> <span>EDUCATION_LOG</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#contact" class="nav-link flex items-center px-8 py-4 transition-all duration-300 hover:text-neon-cyan group">
-                                <i class="fa-solid fa-link w-8"></i> <span>ESTABLISH_LINK</span>
+                            <a href="#contact" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
+                                <i class="fa-solid fa-link w-8 group-hover:text-neon-cyan"></i> <span>ESTABLISH_LINK</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
             </div>
 
+            <!-- Profile Footer -->
             <div class="px-8">
                 <div class="flex justify-around mb-6">
-                    <a href="https://github.com/muklis111" target="_blank" class="text-gray-500 hover:text-neon-cyan transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
-                    <a href="https://wa.me/6285222373394" target="_blank" class="text-gray-500 hover:text-neon-green transition-colors"><i class="fa-brands fa-whatsapp text-xl"></i></a>
-                    <a href="#" class="text-gray-500 hover:text-neon-pink transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="https://github.com/muklis111" target="_blank" class="text-gray-500 hover:text-neon-cyan transition-colors" title="GitHub Node"><i class="fa-brands fa-github text-xl"></i></a>
+                    <a href="https://wa.me/6285222373394" target="_blank" class="text-gray-500 hover:text-neon-green transition-colors" title="WhatsApp Secure"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-neon-pink transition-colors" title="Instagram Link"><i class="fa-brands fa-instagram text-xl"></i></a>
                 </div>
-                <p class="text-[10px] font-mono text-gray-600 text-center uppercase tracking-tighter">System Version: 2.5.0-stable</p>
+                <p class="text-[10px] font-mono text-gray-500 text-center uppercase tracking-tighter">System Version: 3.1.2-stable</p>
+                <div class="mt-2 text-[9px] font-mono text-neon-cyan/40 text-center" id="server-time">UPTIME: 00:00:00</div>
             </div>
         </div>
     </header>
 
+    <!-- Main Command Deck container -->
     <main class="xl:ml-[280px]">
         
         <!-- Hero Section -->
-        <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden grid-bg">
-            <div class="absolute top-10 left-10 w-32 h-32 border-l border-t border-neon-cyan opacity-20 hidden md:block"></div>
-            <div class="absolute bottom-10 right-10 w-32 h-32 border-r border-b border-neon-purple opacity-20 hidden md:block"></div>
+        <section id="hero" class="relative h-screen flex flex-col items-center justify-center overflow-hidden grid-bg px-6">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark-void via-transparent to-dark-void"></div>
+            
+            <div class="absolute top-10 left-10 w-24 h-24 border-l-2 border-t-2 border-neon-cyan opacity-20 hidden md:block"></div>
+            <div class="absolute bottom-10 right-10 w-24 h-24 border-r-2 border-b-2 border-neon-purple opacity-20 hidden md:block"></div>
 
-            <div class="relative z-10 text-center px-6">
-                <p class="font-mono text-neon-cyan mb-4 tracking-[0.3em] uppercase animate-pulse">Initializing Interface...</p>
-                <h1 class="text-5xl md:text-8xl font-heading font-black text-white mb-6 tracking-tighter">
-                    M.<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple">MUKLIS</span>
+            <div class="relative z-10 text-center max-w-4xl w-full">
+                <p class="font-mono text-neon-cyan mb-4 tracking-[0.3em] uppercase animate-pulse text-xs sm:text-sm">Initializing Interface Node...</p>
+                
+                <h1 class="text-4xl sm:text-6xl md:text-8xl font-heading font-black text-white mb-6 tracking-tighter">
+                    M.<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink">MUKLIS</span>
                 </h1>
-                <div class="font-mono text-xl md:text-2xl text-gray-400">
-                    $ <span id="typed-text" class="text-neon-cyan"></span><span class="typed-cursor">_</span>
+                
+                <!-- Typing Script Loop -->
+                <div class="font-mono text-lg sm:text-xl md:text-2xl text-gray-400 min-h-[40px] flex items-center justify-center">
+                    $ <span id="typed-text" class="text-neon-cyan ml-2"></span><span class="typed-cursor">_</span>
                 </div>
-                <div class="mt-12 flex flex-col md:flex-row gap-4 justify-center">
-                    <a href="#projects" class="px-8 py-3 bg-transparent border border-neon-cyan text-neon-cyan font-heading uppercase tracking-widest hover:bg-neon-cyan hover:text-black transition-all duration-300 shadow-neon-cyan">Launch Projects</a>
-                    <a href="#contact" class="px-8 py-3 bg-transparent border border-neon-purple text-neon-purple font-heading uppercase tracking-widest hover:bg-neon-purple hover:text-white transition-all duration-300">Establish Connection</a>
+
+                <!-- Interactive Terminal Simulator Shell -->
+                <div class="mt-10 mx-auto max-w-xl text-left bg-dark-card/90 border border-slate-800 rounded-lg shadow-2xl overflow-hidden font-mono text-xs sm:text-sm">
+                    <div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-slate-800">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                        </div>
+                        <span class="text-gray-500 text-[10px] uppercase tracking-wider">MUKLIS_MOCK_TERMINAL v1.0</span>
+                    </div>
+                    <div class="p-4 h-48 overflow-y-auto space-y-2 text-slate-300" id="terminal-history">
+                        <div>Welcome to M. Muklis Interactive Portal.</div>
+                        <div class="text-gray-500">Type <span class="text-neon-cyan font-bold">help</span> to view available system scripts.</div>
+                    </div>
+                    <div class="flex items-center bg-slate-950 px-4 py-2.5 border-t border-slate-800">
+                        <span class="text-neon-green mr-2">guest@muklis-system:~$</span>
+                        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-neon-cyan flex-grow font-mono" placeholder="Type here..." autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#projects" class="px-8 py-3 w-full sm:w-auto bg-transparent border border-neon-cyan text-neon-cyan font-heading uppercase tracking-widest hover:bg-neon-cyan hover:text-black transition-all duration-300 shadow-neon-cyan glow-hover text-center">Launch Projects</a>
+                    <a href="#contact" class="px-8 py-3 w-full sm:w-auto bg-transparent border border-neon-purple text-neon-purple font-heading uppercase tracking-widest hover:bg-neon-purple hover:text-white transition-all duration-300 text-center">Establish Connection</a>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-24 px-8 md:px-16 lg:px-24">
+        <section id="about" class="py-24 px-6 md:px-16 lg:px-24 border-t border-slate-900 relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-neon-purple/5 rounded-full blur-3xl pointer-events-none"></div>
             <div class="max-w-4xl mx-auto">
                 <div class="flex items-center mb-12">
-                    <h2 class="text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">About_System</h2>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">About_System</h2>
                     <div class="h-px flex-grow bg-gradient-to-r from-neon-cyan to-transparent"></div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
                     <div class="md:col-span-2 space-y-6">
-                        <p class="font-body text-xl text-gray-300 leading-relaxed italic">
-                            "Mahasiswa IT di <span class="text-neon-cyan">Universitas Jabal Ghafur</span> yang berdedikasi tinggi dalam pengembangan platform digital dan sistem berbasis web."
+                        <p class="font-body text-xl md:text-2xl text-gray-300 leading-relaxed italic">
+                            "Mahasiswa IT di <span class="text-neon-cyan text-shadow">Universitas Jabal Ghafur</span> yang berdedikasi tinggi dalam pengembangan platform digital dan sistem berbasis web."
                         </p>
-                        <div class="p-6 bg-dark-card border-l-4 border-neon-purple rounded-r-lg">
-                            <p class="text-gray-400 font-mono text-sm leading-relaxed">
-                                > Status: Developing_Innovation<br>
-                                > Core: Web_Development, System_Analysis<br>
-                                > Location: Sigli, Aceh
+                        <p class="text-slate-400 font-body text-base leading-relaxed">
+                            Fokus utama saya mencakup rekayasa antarmuka pengguna interaktif (Frontend Development) serta perancangan tata kelola sistem informasi yang efisien. Memiliki ketertarikan tinggi dalam teknologi modern serta selalu siap beradaptasi dengan alur kerja teknologi baru.
+                        </p>
+                        <div class="p-6 bg-dark-card/80 border-l-4 border-neon-purple rounded-r-lg shadow-xl backdrop-blur-sm">
+                            <p class="text-gray-300 font-mono text-sm leading-relaxed space-y-1">
+                                <span class="block text-neon-purple font-bold">&gt;_ HARDWARE_SPECIFICATION</span>
+                                <span class="block text-slate-400">&gt; Status: <span class="text-neon-green font-semibold">Developing_Innovation</span></span>
+                                <span class="block text-slate-400">&gt; Core: <span class="text-white">Web_Development, System_Analysis, UI/UX</span></span>
+                                <span class="block text-slate-400">&gt; Location: <span class="text-white">Sigli, Aceh, ID</span></span>
                             </p>
                         </div>
                     </div>
-                    <div class="bg-dark-card border border-slate-800 p-6 rounded-lg font-mono text-xs shadow-neon-cyan/5">
-                        <h4 class="text-neon-cyan mb-4 border-b border-slate-800 pb-2 uppercase text-center">System Stats</h4>
-                        <ul class="space-y-3">
-                            <li class="flex justify-between"><span>Problem_Solving</span><span class="text-neon-cyan">85%</span></li>
-                            <li class="flex justify-between"><span>Web_Development</span><span class="text-neon-cyan">92%</span></li>
-                            <li class="flex justify-between"><span>Fast_Learning</span><span class="text-neon-cyan">95%</span></li>
-                            <li class="flex justify-between"><span>Logic_Thinking</span><span class="text-neon-cyan">88%</span></li>
+                    
+                    <!-- Cyber Skills Status Deck -->
+                    <div class="bg-dark-card/90 border border-slate-800 p-6 rounded-xl font-mono text-xs shadow-xl backdrop-blur-sm relative">
+                        <div class="absolute -top-3 left-4 px-2 py-0.5 bg-neon-cyan/20 border border-neon-cyan text-neon-cyan text-[9px] uppercase font-bold tracking-widest">System Metrics</div>
+                        <h4 class="text-neon-cyan mb-6 border-b border-slate-800 pb-2 uppercase text-center font-heading tracking-wider">System Stats</h4>
+                        <ul class="space-y-4">
+                            <li>
+                                <div class="flex justify-between mb-1"><span>Problem_Solving</span><span class="text-neon-cyan">85%</span></div>
+                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 85%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex justify-between mb-1"><span>Web_Development</span><span class="text-neon-cyan">92%</span></div>
+                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 92%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex justify-between mb-1"><span>Fast_Learning</span><span class="text-neon-cyan">95%</span></div>
+                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 95%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex justify-between mb-1"><span>Logic_Thinking</span><span class="text-neon-cyan">88%</span></div>
+                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 88%"></div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -225,59 +302,109 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-24 px-8 md:px-16 lg:px-24 bg-dark-card/30">
-            <div class="max-w-6xl mx-auto">
+        <section id="projects" class="py-24 px-6 md:px-16 lg:px-24 bg-dark-card/40 relative">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon-pink/2 to-transparent pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto">
                 <div class="flex items-center mb-16">
-                    <h2 class="text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Active_Deployments</h2>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Active_Deployments</h2>
                     <div class="h-px flex-grow bg-gradient-to-r from-neon-pink to-transparent"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Project 1: Platform M. MUKLIS -->
                     <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-cyan transition-all duration-500 shadow-xl">
-                        <div class="aspect-video bg-slate-900 relative">
-                            <div class="absolute inset-0 flex items-center justify-center flex-col p-8 text-center">
-                                <i class="fa-solid fa-user-gear text-5xl text-neon-cyan mb-4 opacity-50 group-hover:scale-110 transition-transform"></i>
+                        <div class="aspect-video bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                            <!-- Background Tech-themed pattern placeholder -->
+                            <div class="absolute inset-0 grid-bg opacity-30"></div>
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/85"></div>
+                            
+                            <div class="relative z-10 flex flex-col items-center p-8 text-center transition-transform duration-500 group-hover:scale-105">
+                                <div class="w-16 h-16 rounded-full bg-neon-cyan/10 flex items-center justify-center mb-4 border border-neon-cyan/20">
+                                    <i class="fa-solid fa-user-gear text-3xl text-neon-cyan opacity-80 group-hover:animate-pulse"></i>
+                                </div>
                                 <h3 class="text-2xl font-heading font-bold text-white mb-2">Platform M. MUKLIS</h3>
-                                <p class="text-gray-500 font-body text-sm">Personal Digital Integration Platform</p>
+                                <p class="text-neon-cyan font-mono text-xs tracking-wider uppercase">Personal Digital Integration Platform</p>
                             </div>
-                            <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <a href="https://muklis111.github.io/platform-M.MUKLIS/" target="_blank" class="px-6 py-3 bg-neon-cyan text-black font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white transition-colors">
+                            <!-- Hidden Hover Action Frame -->
+                            <div class="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 z-20">
+                                <span class="text-neon-cyan font-mono text-[10px] tracking-[0.2em] mb-4 uppercase">NETWORK ACCESS APPROVED</span>
+                                <a href="https://muklis111.github.io/platform-M.MUKLIS/" target="_blank" class="px-6 py-3 bg-neon-cyan text-black font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white transition-all shadow-neon-cyan">
                                     <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Access Link
                                 </a>
                             </div>
                         </div>
-                        <div class="p-6 border-t border-slate-800">
+                        <div class="p-6 border-t border-slate-800/80 bg-slate-950/60">
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span class="text-[10px] font-mono px-2 py-1 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">HTML5</span>
                                 <span class="text-[10px] font-mono px-2 py-1 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">CSS3</span>
                                 <span class="text-[10px] font-mono px-2 py-1 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">JavaScript</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">Responsive</span>
                             </div>
-                            <p class="text-gray-400 text-sm font-body">Pusat integrasi identitas digital dan portofolio interaktif yang dikembangkan secara personal.</p>
+                            <p class="text-gray-400 text-sm font-body leading-relaxed">Pusat integrasi identitas digital dan portofolio interaktif yang dikembangkan secara personal untuk menampilkan visualisasi web modern.</p>
                         </div>
                     </div>
 
                     <!-- Project 2: Platform Web Geuchik -->
                     <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-purple transition-all duration-500 shadow-xl">
-                        <div class="aspect-video bg-slate-900 relative">
-                            <div class="absolute inset-0 flex items-center justify-center flex-col p-8 text-center">
-                                <i class="fa-solid fa-landmark text-5xl text-neon-purple mb-4 opacity-50 group-hover:scale-110 transition-transform"></i>
+                        <div class="aspect-video bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 grid-bg opacity-30"></div>
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/85"></div>
+                            
+                            <div class="relative z-10 flex flex-col items-center p-8 text-center transition-transform duration-500 group-hover:scale-105">
+                                <div class="w-16 h-16 rounded-full bg-neon-purple/10 flex items-center justify-center mb-4 border border-neon-purple/20">
+                                    <i class="fa-solid fa-landmark text-3xl text-neon-purple opacity-80 group-hover:animate-pulse"></i>
+                                </div>
                                 <h3 class="text-2xl font-heading font-bold text-white mb-2">Web Geuchik</h3>
-                                <p class="text-gray-500 font-body text-sm">Village Governance Management Solution</p>
+                                <p class="text-neon-purple font-mono text-xs tracking-wider uppercase">Village Governance Management Solution</p>
                             </div>
-                            <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <a href="https://muklis111.github.io/platformwebgeuchik/" target="_blank" class="px-6 py-3 bg-neon-purple text-white font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white hover:text-black transition-colors shadow-neon-purple">
+                            
+                            <div class="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 z-20">
+                                <span class="text-neon-purple font-mono text-[10px] tracking-[0.2em] mb-4 uppercase">NETWORK ACCESS APPROVED</span>
+                                <a href="https://muklis111.github.io/platformwebgeuchik/" target="_blank" class="px-6 py-3 bg-neon-purple text-white font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white hover:text-black transition-all shadow-neon-purple">
                                     <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Access Link
                                 </a>
                             </div>
                         </div>
-                        <div class="p-6 border-t border-slate-800">
+                        <div class="p-6 border-t border-slate-800/80 bg-slate-950/60">
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Public Service</span>
-                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Tailwind</span>
-                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Digital Governance</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Tailwind CSS</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Village System</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Management</span>
                             </div>
-                            <p class="text-gray-400 text-sm font-body">Solusi platform web untuk manajemen administrasi dan pelayanan publik tingkat desa.</p>
+                            <p class="text-gray-400 text-sm font-body leading-relaxed">Solusi platform web untuk membantu digitalisasi administrasi, manajemen berkas pelayanan publik, dan publikasi program tingkat desa secara efisien.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Platform JB Durian -->
+                    <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-green transition-all duration-500 shadow-xl">
+                        <div class="aspect-video bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 grid-bg opacity-30"></div>
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/85"></div>
+                            
+                            <div class="relative z-10 flex flex-col items-center p-8 text-center transition-transform duration-500 group-hover:scale-105">
+                                <div class="w-16 h-16 rounded-full bg-neon-green/10 flex items-center justify-center mb-4 border border-neon-green/20">
+                                    <i class="fa-solid fa-seedling text-3xl text-neon-green opacity-80 group-hover:animate-pulse"></i>
+                                </div>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-2">Platform JB Durian</h3>
+                                <p class="text-neon-green font-mono text-xs tracking-wider uppercase">Agribusiness & Durian Hub Portal</p>
+                            </div>
+                            
+                            <div class="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 z-20">
+                                <span class="text-neon-green font-mono text-[10px] tracking-[0.2em] mb-4 uppercase">NETWORK ACCESS APPROVED</span>
+                                <a href="https://muklis111.github.io/platformjbdurian/" target="_blank" class="px-6 py-3 bg-neon-green text-black font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white transition-all shadow-neon-green">
+                                    <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Access Link
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-slate-800/80 bg-slate-950/60">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-green/10 text-neon-green border border-neon-green/30 rounded">Agribusiness</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-green/10 text-neon-green border border-neon-green/30 rounded">Management</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-green/10 text-neon-green border border-neon-green/30 rounded">Tailwind CSS</span>
+                                <span class="text-[10px] font-mono px-2 py-1 bg-neon-green/10 text-neon-green border border-neon-green/30 rounded">Distribution</span>
+                            </div>
+                            <p class="text-gray-400 text-sm font-body leading-relaxed">Platform digital untuk tata kelola agribisnis durian, monitoring komoditas hortikultura lokal, serta simplifikasi rantai distribusi pasokan buah.</p>
                         </div>
                     </div>
                 </div>
@@ -285,45 +412,53 @@
         </section>
 
         <!-- Education Section -->
-        <section id="pendidikan" class="py-24 px-8 md:px-16 lg:px-24 bg-dark-card/10 relative overflow-hidden">
+        <section id="pendidikan" class="py-24 px-6 md:px-16 lg:px-24 bg-dark-card/10 relative overflow-hidden">
+            <div class="absolute bottom-0 right-0 w-80 h-80 bg-neon-cyan/5 rounded-full blur-3xl pointer-events-none"></div>
             <div class="max-w-4xl mx-auto relative z-10">
                 <div class="flex items-center mb-12">
-                    <h2 class="text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Education_Log</h2>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Education_Log</h2>
                     <div class="h-px flex-grow bg-gradient-to-r from-neon-purple to-transparent"></div>
                 </div>
 
-                <div class="space-y-0 border-l border-neon-cyan/20 ml-4">
-                    <!-- Kuliah -->
-                    <div class="relative pl-12 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-cyan rounded-full -left-[8px] top-0 group-hover:bg-neon-cyan transition-colors shadow-neon-cyan"></div>
-                        <span class="font-mono text-neon-cyan text-sm tracking-tighter">[ 2022 - SEKARANG ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1">Universitas Jabal Ghafur</h3>
+                <!-- Timeline container -->
+                <div class="space-y-0 border-l-2 border-slate-800 ml-4 md:ml-6">
+                    
+                    <!-- University Node -->
+                    <div class="relative pl-10 pb-12 group">
+                        <!-- Node indicator -->
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-cyan rounded-full -left-[9px] top-1.5 group-hover:bg-neon-cyan transition-colors shadow-neon-cyan"></div>
+                        <span class="font-mono text-neon-cyan text-xs tracking-tighter block mb-1">[ 2022 - SEKARANG ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-cyan transition-colors">Universitas Jabal Ghafur</h3>
                         <p class="text-neon-purple font-mono text-sm uppercase mt-1">S1 Teknik Informatika</p>
-                        <p class="text-gray-500 mt-4 max-w-xl font-body">Sedang menempuh pendidikan tinggi dengan fokus pada pengembangan sistem informasi dan rekayasa perangkat lunak.</p>
+                        <p class="text-gray-400 mt-4 max-w-xl font-body leading-relaxed text-sm md:text-base">
+                            Sedang menempuh pendidikan tinggi jenjang sarjana dengan fokus utama pada pemahaman arsitektur sistem informasi, pemrograman web lanjut, rekayasa kebutuhan perangkat lunak, serta jaringan komputer.
+                        </p>
                     </div>
 
-                    <!-- SMK -->
-                    <div class="relative pl-12 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-purple rounded-full -left-[8px] top-0 group-hover:bg-neon-purple transition-colors shadow-neon-purple"></div>
-                        <span class="font-mono text-neon-purple text-sm tracking-tighter">[ JENJANG MENENGAH ATAS ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1">SMK Al Fitri Beureunuen</h3>
+                    <!-- SMK Node -->
+                    <div class="relative pl-10 pb-12 group">
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-purple rounded-full -left-[9px] top-1.5 group-hover:bg-neon-purple transition-colors shadow-neon-purple"></div>
+                        <span class="font-mono text-neon-purple text-xs tracking-tighter block mb-1">[ JENJANG MENENGAH ATAS ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-purple transition-colors">SMK Al Fitri Beureunuen</h3>
                         <p class="text-gray-400 font-mono text-sm uppercase mt-1">Sekolah Menengah Kejuruan</p>
-                        <p class="text-gray-500 mt-4 max-w-xl font-body">Mengembangkan dasar-dasar keahlian teknis dan kedisiplinan di lingkungan pendidikan kejuruan.</p>
+                        <p class="text-gray-400 mt-4 max-w-xl font-body leading-relaxed text-sm md:text-base">
+                            Mengembangkan kompetensi dasar ilmu teknologi dan kedisiplinan tingkat kejuruan sebagai landasan awal berkarir di bidang teknologi informasi.
+                        </p>
                     </div>
 
-                    <!-- MTSN -->
-                    <div class="relative pl-12 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-pink rounded-full -left-[8px] top-0 group-hover:bg-neon-pink transition-colors shadow-neon-pink"></div>
-                        <span class="font-mono text-neon-pink text-sm tracking-tighter">[ JENJANG MENENGAH PERTAMA ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1">MTsN 6 Pidie</h3>
+                    <!-- MTSN Node -->
+                    <div class="relative pl-10 pb-12 group">
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-pink rounded-full -left-[9px] top-1.5 group-hover:bg-neon-pink transition-colors shadow-neon-pink"></div>
+                        <span class="font-mono text-neon-pink text-xs tracking-tighter block mb-1">[ JENJANG MENENGAH PERTAMA ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-pink transition-colors">MTsN 6 Pidie</h3>
                         <p class="text-gray-400 font-mono text-sm uppercase mt-1">Madrasah Tsanawiyah Negeri</p>
                     </div>
 
-                    <!-- MIN -->
-                    <div class="relative pl-12 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-cyan rounded-full -left-[8px] top-0 group-hover:bg-neon-cyan transition-colors shadow-neon-cyan"></div>
-                        <span class="font-mono text-neon-cyan text-sm tracking-tighter">[ JENJANG DASAR ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1">MIN 7 Pidie</h3>
+                    <!-- MIN Node -->
+                    <div class="relative pl-10 pb-12 group">
+                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-green rounded-full -left-[9px] top-1.5 group-hover:bg-neon-green transition-colors shadow-neon-green"></div>
+                        <span class="font-mono text-neon-green text-xs tracking-tighter block mb-1">[ JENJANG DASAR ]</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-green transition-colors">MIN 7 Pidie</h3>
                         <p class="text-gray-400 font-mono text-sm uppercase mt-1">Madrasah Ibtidaiyah Negeri</p>
                     </div>
                 </div>
@@ -331,27 +466,92 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24 px-8 md:px-16 lg:px-24 bg-dark-card/50">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-5xl font-heading font-black text-white mb-6 uppercase">Establish_Link</h2>
-                <p class="text-gray-400 font-mono mb-12 italic">"Ready to integrate new projects or system collaborations."</p>
+        <section id="contact" class="py-24 px-6 md:px-16 lg:px-24 bg-dark-card/50">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-heading font-black text-white mb-6 uppercase tracking-wider">Establish_Link</h2>
+                    <p class="text-gray-400 font-mono italic max-w-lg mx-auto">"Ready to integrate new projects, secure remote positions, or host tech collaborations."</p>
+                </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <a href="mailto:mukhlismukklis2@gmail.com" class="p-6 border border-slate-800 bg-dark-void flex items-center justify-center space-x-4 hover:border-neon-cyan group transition-all">
-                        <i class="fa-solid fa-envelope text-neon-cyan"></i>
-                        <span class="text-gray-300 font-mono group-hover:text-white">mukhlismukklis2@gmail.com</span>
-                    </a>
-                    <a href="https://wa.me/6285222373394" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center justify-center space-x-4 hover:border-neon-green group transition-all shadow-neon-green/5">
-                        <i class="fa-brands fa-whatsapp text-neon-green"></i>
-                        <span class="text-gray-300 font-mono group-hover:text-white">085222373394</span>
-                    </a>
-                    <a href="https://github.com/muklis111" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center justify-center space-x-4 hover:border-neon-purple group transition-all md:col-span-2 lg:col-span-1">
-                        <i class="fa-brands fa-github text-neon-purple"></i>
-                        <span class="text-gray-300 font-mono group-hover:text-white">github.com/muklis111</span>
-                    </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-12">
+                    <!-- Secure Handshake Transmission logs -->
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 font-mono text-xs flex flex-col justify-between shadow-2xl relative overflow-hidden">
+                        <div class="absolute -top-3 left-4 px-2 py-0.5 bg-neon-green/20 border border-neon-green text-neon-green text-[9px] uppercase font-bold tracking-widest">Connection Logs</div>
+                        <div class="space-y-3" id="handshake-logs">
+                            <p class="text-gray-500">// READY TO ESTABLISH TCP PORTAL</p>
+                            <p class="text-slate-400">&gt; Status: <span class="text-neon-green font-bold">PORT_LISTEN</span></p>
+                            <p class="text-slate-400">&gt; Host IP: <span class="text-neon-cyan">10.0.8.21</span></p>
+                            <p class="text-slate-400">&gt; Node Location: <span class="text-white">Sigli, Aceh, ID</span></p>
+                            <p class="text-slate-500">// Waiting for visitor transmission request...</p>
+                        </div>
+                        <div class="mt-6 p-3 bg-dark-card/80 border border-slate-800 rounded flex items-center justify-between">
+                            <span class="text-[10px] text-gray-500 uppercase">Secure Handshake Encryption</span>
+                            <span class="text-neon-green font-bold text-[10px] animate-pulse">SSL_ONLINE</span>
+                        </div>
+                    </div>
+
+                    <!-- Contact details lists -->
+                    <div class="space-y-4 flex flex-col justify-between">
+                        <a href="mailto:mukhlismukklis2@gmail.com" class="p-6 border border-slate-800 bg-dark-void flex items-center space-x-4 hover:border-neon-cyan group transition-all rounded-lg shadow-xl">
+                            <div class="w-12 h-12 rounded-full bg-neon-cyan/10 flex items-center justify-center border border-neon-cyan/20">
+                                <i class="fa-solid fa-envelope text-neon-cyan text-lg"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-gray-500 font-mono uppercase">Secure Email Channel</span>
+                                <span class="text-gray-300 font-mono group-hover:text-white text-sm sm:text-base">mukhlismukklis2@gmail.com</span>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/6285222373394" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center space-x-4 hover:border-neon-green group transition-all rounded-lg shadow-xl">
+                            <div class="w-12 h-12 rounded-full bg-neon-green/10 flex items-center justify-center border border-neon-green/20">
+                                <i class="fa-brands fa-whatsapp text-neon-green text-lg"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-gray-500 font-mono uppercase">WhatsApp Protocol</span>
+                                <span class="text-gray-300 font-mono group-hover:text-white text-sm sm:text-base">085222373394</span>
+                            </div>
+                        </a>
+                        <a href="https://github.com/muklis111" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center space-x-4 hover:border-neon-purple group transition-all rounded-lg shadow-xl">
+                            <div class="w-12 h-12 rounded-full bg-neon-purple/10 flex items-center justify-center border border-neon-purple/20">
+                                <i class="fa-brands fa-github text-neon-purple text-lg"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-gray-500 font-mono uppercase">Repository Hub</span>
+                                <span class="text-gray-300 font-mono group-hover:text-white text-sm sm:text-base">github.com/muklis111</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="mt-16 pt-16 border-t border-slate-900">
+                <!-- Simulation Form (Visual Connection Request) -->
+                <div class="mt-8 bg-dark-card/90 border border-slate-800 rounded-xl p-6 shadow-2xl relative">
+                    <h3 class="text-lg font-heading text-white mb-6 uppercase tracking-wider flex items-center gap-2">
+                        <span class="inline-block w-2.5 h-2.5 bg-neon-cyan rounded-full animate-pulse"></span>
+                        Send Direct Cyber-Transmission
+                    </h3>
+                    <form id="secure-transmission-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-gray-500 font-mono uppercase mb-2">Visitor Alias</label>
+                                <input type="text" id="visitor-name" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-neon-cyan transition-colors" placeholder="e.g. Neo">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 font-mono uppercase mb-2">Comms Node Address (Email)</label>
+                                <input type="email" id="visitor-email" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-neon-cyan transition-colors" placeholder="e.g. neo@matrix.net">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 font-mono uppercase mb-2">Encrypted Payload Content</label>
+                            <textarea id="visitor-msg" rows="4" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-neon-cyan transition-colors" placeholder="Enter transmission message..."></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-8 py-3 bg-neon-cyan text-black font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white transition-all shadow-neon-cyan cursor-pointer">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> Transmit Packet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="mt-16 pt-16 border-t border-slate-900 text-center">
                     <p class="text-gray-600 font-mono text-[10px] tracking-[0.5em] uppercase">Built with Code & Neon by M. Muklis</p>
                 </div>
             </div>
@@ -360,12 +560,14 @@
     </main>
 
     <script>
+        // --- TYPING SCRIPT LOOP ENGINE ---
         const phrases = [
             "npm start platform-muklis",
             "git clone web-geuchik",
             "while(true) { develop_innovation(); }",
             "Mahasiswa IT Universitas Jabal Ghafur",
-            "Frontend & Governance Dev Enthusiast"
+            "Frontend & Governance Dev Enthusiast",
+            "Welcome to the Nexus Command Deck."
         ];
         
         let i = 0;
@@ -396,10 +598,11 @@
                 j++;
             }
 
-            const speed = isDeleting ? 50 : 100;
+            const speed = isDeleting ? 40 : 80;
             setTimeout(loop, speed);
         }
 
+        // --- MOBILE NAVIGATION SIDEBAR LOGIC ---
         const toggleBtn = document.getElementById('mobile-nav-toggle');
         const sidebar = document.getElementById('sidebar');
         
@@ -410,14 +613,27 @@
             icon.classList.toggle('fa-xmark');
         });
 
+        // Close mobile sidebar drawer after choosing link destination
         const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1280) {
+                    sidebar.classList.add('-translate-x-full');
+                    const icon = toggleBtn.querySelector('i');
+                    icon.classList.add('fa-terminal');
+                    icon.classList.remove('fa-xmark');
+                }
+            });
+        });
+
+        // --- VIEWPORT NAVIGATION HIGH LIGHT SCRIPT ---
         const sections = document.querySelectorAll('section');
 
         window.addEventListener('scroll', () => {
             let current = "";
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 150) {
+                if (window.scrollY >= sectionTop - 180) {
                     current = section.getAttribute('id');
                 }
             });
@@ -430,7 +646,106 @@
             });
         });
 
-        window.onload = loop;
+        // --- INTERACTIVE TERMINAL SIMULATOR ENGINE ---
+        const terminalHistory = document.getElementById('terminal-history');
+        const terminalInput = document.getElementById('terminal-input');
+
+        const terminalCommands = {
+            help: "Available commands: <span class='text-neon-cyan'>about</span>, <span class='text-neon-cyan'>skills</span>, <span class='text-neon-cyan'>projects</span>, <span class='text-neon-cyan'>education</span>, <span class='text-neon-cyan'>contact</span>, <span class='text-neon-cyan'>clear</span>",
+            about: "M. Muklis - IT Student at Universitas Jabal Ghafur. Specialized in responsive Web Engineering & design.",
+            skills: "Problem Solving (85%), Web Dev (92%), Fast Learning (95%), Logic (88%).",
+            projects: "Deployments: [1] Platform M. MUKLIS, [2] Web Geuchik, [3] Platform JB Durian. Type 'launch 1', 'launch 2', or 'launch 3' to visit.",
+            education: "Unigah University [2022 - Present] | SMK Al Fitri | MTsN 6 Pidie | MIN 7 Pidie",
+            contact: "Mail: mukhlismukklis2@gmail.com | WA: +6285222373394 | GitHub: muklis111",
+            "launch 1": "Redirecting to platform portal... <script>window.open('https://muklis111.github.io/platform-M.MUKLIS/', '_blank')</" + "script>",
+            "launch 2": "Redirecting to Web Geuchik portal... <script>window.open('https://muklis111.github.io/platformwebgeuchik/', '_blank')</" + "script>",
+            "launch 3": "Redirecting to Platform JB Durian portal... <script>window.open('https://muklis111.github.io/platformjbdurian/', '_blank')</" + "script>",
+            clear: ""
+        };
+
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value.trim().toLowerCase();
+                this.value = '';
+
+                if (query === '') return;
+
+                // Create input feedback element in log screen
+                const userLine = document.createElement('div');
+                userLine.innerHTML = `<span class="text-neon-green">guest@muklis-system:~$</span> ${query}`;
+                terminalHistory.appendChild(userLine);
+
+                // Analyze query payload
+                const systemResponse = document.createElement('div');
+                if (query === 'clear') {
+                    terminalHistory.innerHTML = "<div>Welcome to M. Muklis Interactive Portal. type <span class='text-neon-cyan font-bold'>help</span> for scripts.</div>";
+                } else if (terminalCommands[query] !== undefined) {
+                    systemResponse.innerHTML = terminalCommands[query];
+                    // Execute inline script redirection hack securely
+                    if (query.startsWith('launch')) {
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = terminalCommands[query];
+                        const script = tempDiv.querySelector('script');
+                        if (script) {
+                            eval(script.innerText);
+                        }
+                    }
+                    terminalHistory.appendChild(systemResponse);
+                } else {
+                    systemResponse.innerHTML = `<span class="text-red-500">Command not found: "${query}".</span> Type <span class="text-neon-cyan">help</span> to explore scripts.`;
+                    terminalHistory.appendChild(systemResponse);
+                }
+
+                // Autoscroll to bottom
+                terminalHistory.scrollTop = terminalHistory.scrollHeight;
+            }
+        });
+
+        // --- SHAKE HAND TRANS-RECEIVER HANDLER (CONTACT SIMULATOR) ---
+        const transmissionForm = document.getElementById('secure-transmission-form');
+        const handshakeLogs = document.getElementById('handshake-logs');
+
+        transmissionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const vName = document.getElementById('visitor-name').value;
+            const vEmail = document.getElementById('visitor-email').value;
+            const vMsg = document.getElementById('visitor-msg').value;
+
+            // Transmit animation logs simulation
+            handshakeLogs.innerHTML = `
+                <p class="text-gray-500">// SENDING COMM PROTOCOL PAYLOAD</p>
+                <p class="text-neon-cyan">&gt; Packet generated from: ${vName}</p>
+                <p class="text-neon-cyan">&gt; Node Email: ${vEmail}</p>
+                <p class="text-neon-pink animate-pulse">&gt; Encrypting handshake logs...</p>
+                <p class="text-slate-400">&gt; Payload weight: ${vMsg.length} bytes</p>
+            `;
+
+            setTimeout(() => {
+                handshakeLogs.innerHTML += `
+                    <p class="text-neon-green font-bold">&gt; PACKET DELIVERED SECURELY (MOCK)</p>
+                    <p class="text-slate-500">// Handshake completed successfully.</p>
+                `;
+                // Clear the input fields safely
+                transmissionForm.reset();
+            }, 1800);
+        });
+
+        // --- REALTIME SYSTEM UPTIME TRACKER ---
+        const systemTimeEl = document.getElementById('server-time');
+        let uptimeSec = 0;
+        function updateUptime() {
+            uptimeSec++;
+            const hours = Math.floor(uptimeSec / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((uptimeSec % 3600) / 60).toString().padStart(2, '0');
+            const seconds = (uptimeSec % 60).toString().padStart(2, '0');
+            systemTimeEl.innerHTML = `UPTIME: ${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateUptime, 1000);
+
+        // --- GLOBAL LAUNCH ON WINDOW LOAD ---
+        window.onload = function() {
+            loop();
+        }
     </script>
 </body>
 </html>
