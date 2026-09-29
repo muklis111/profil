@@ -1,307 +1,164 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M. Muklis | Portofolio Mahasiswa IT Cyber-Nexus</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        // Konfigurasi Kustomisasi Tema Tailwind CSS
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'neon-cyan': '#00f3ff',
-                        'neon-purple': '#bc13fe',
-                        'neon-pink': '#ff00e0',
-                        'dark-void': '#020205',
-                        'dark-card': '#0a0a12',
-                        'neon-green': '#39ff14'
-                    },
-                    fontFamily: {
-                        'mono': ['Fira Code', 'monospace'],
-                        'heading': ['Orbitron', 'sans-serif'],
-                        'body': ['Rajdhani', 'sans-serif']
-                    },
-                    boxShadow: {
-                        'neon-cyan': '0 0 15px rgba(0, 243, 255, 0.4)',
-                        'neon-pink': '0 0 15px rgba(255, 0, 224, 0.4)',
-                        'neon-purple': '0 0 15px rgba(188, 19, 254, 0.4)',
-                        'neon-green': '0 0 15px rgba(57, 255, 20, 0.4)',
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        body {
-            background-color: #020205;
-            color: #e2e8f0;
-            font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Efek garis pemindai tabung CRT (Scanline effect) */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
-            z-index: 9999;
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-            opacity: 0.25;
-        }
-
-        .neon-text-cyan {
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.3);
-        }
-        
-        .neon-text-pink {
-            text-shadow: 0 0 10px rgba(255, 0, 224, 0.8), 0 0 20px rgba(255, 0, 224, 0.3);
-        }
-
-        .neon-border-cyan {
-            border: 1px solid #00f3ff;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
-        }
-
-        .typed-cursor {
-            color: #00f3ff;
-            animation: blink 0.7s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        .glass-sidebar {
-            background: rgba(10, 10, 18, 0.95);
-            backdrop-filter: blur(12px);
-            border-right: 1px solid rgba(0, 243, 255, 0.15);
-        }
-
-        .nav-link.active {
-            color: #00f3ff;
-            background: rgba(0, 243, 255, 0.08);
-            border-right: 4px solid #00f3ff;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020205; }
-        ::-webkit-scrollbar-thumb { background: #00f3ff; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #ff00e0; }
-
-        .grid-bg {
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        .glow-hover:hover {
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
-            transform: translateY(-2px);
-        }
-    </style>
+    <title>M. Muklis — IT Student & Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="selection:bg-neon-cyan selection:text-black">
+<body>
 
-    <!-- Kontrol Efek Suara (Mute/Unmute) -->
-    <div class="fixed top-4 left-4 xl:left-[300px] z-[1000]">
-        <button id="sound-toggle" class="bg-dark-card/90 backdrop-blur-md border border-neon-cyan/50 text-neon-cyan px-3 py-2 rounded flex items-center gap-2 hover:bg-neon-cyan/20 transition-all text-xs font-mono shadow-neon-cyan">
-            <i id="sound-icon" class="fa-solid fa-volume-high"></i>
-            <span id="sound-text">AUDIO ON</span>
-        </button>
-    </div>
-
-    <!-- Tombol Navigasi Seluler -->
-    <button id="mobile-nav-toggle" class="fixed top-4 right-4 z-[1000] bg-dark-card/90 backdrop-blur-md border border-neon-cyan text-neon-cyan w-12 h-12 rounded flex items-center justify-center xl:hidden hover:bg-neon-cyan/10 transition-colors shadow-neon-cyan">
-        <i class="fa-solid fa-terminal text-lg"></i>
-    </button>
-
-    <!-- Bilah Samping Navigasi (Sidebar) -->
-    <header id="sidebar" class="fixed top-0 left-0 bottom-0 w-[280px] z-[99] glass-sidebar transform -translate-x-full xl:translate-x-0 transition-transform duration-300">
-        <div class="h-full flex flex-col justify-between py-10">
+    <header>
+        <div>
             <div>
-                <!-- Profil Cyber-Card Pengguna -->
-                <div class="flex flex-col items-center mb-10">
-                    <div class="relative p-1 rounded-full bg-gradient-to-tr from-neon-cyan via-neon-purple to-neon-pink mb-4 shadow-neon-cyan">
-                        <!-- Bingkai Gambar Profil -->
-                        <img src="muklis.png" onerror="this.src='https://ui-avatars.com/api/?name=M+Muklis&background=0a0a12&color=00f3ff&size=128'" alt="M. Muklis" class="w-28 h-28 rounded-full object-cover border-2 border-dark-void">
-                        <div class="absolute bottom-1 right-2 w-4 h-4 bg-neon-green rounded-full border-2 border-dark-card animate-ping"></div>
-                        <div class="absolute bottom-1 right-2 w-4 h-4 bg-neon-green rounded-full border-2 border-dark-card"></div>
+                <div>
+                    <div>
+                        <img alt="M. Muklis" src="muklis.png">
+                        <div></div>
+                        <div></div>
                     </div>
-                    <h1 class="text-xl font-heading font-bold text-white tracking-widest uppercase text-center px-2">M. Muklis</h1>
-                    <p class="text-neon-cyan text-xs font-mono mt-2 text-center flex items-center gap-1.5">
-                        <span class="inline-block w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
+                    <h1>M. Muklis</h1>
+                    <p>
+                        <span></span>
                         &lt; IT_STUDENT /&gt;
                     </p>
                 </div>
 
-                <!-- Direktori Tautan Navigasi -->
-                <nav class="font-body text-lg">
-                    <ul class="space-y-1">
+                <nav>
+                    <ul>
                         <li>
-                            <a href="#hero" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
-                                <i class="fa-solid fa-house w-8 group-hover:text-neon-cyan"></i> <span>HOME</span>
+                            <a href="#hero">
+                                <i></i> <span>HOME</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#about" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
-                                <i class="fa-solid fa-user-gear w-8 group-hover:text-neon-cyan"></i> <span>ABOUT_SYSTEM</span>
+                            <a href="#about">
+                                <i></i> <span>ABOUT_SYSTEM</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#projects" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
-                                <i class="fa-solid fa-code w-8 group-hover:text-neon-cyan"></i> <span>DEPLOYMENTS</span>
+                            <a href="#projects">
+                                <i></i> <span>DEPLOYMENTS</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#pendidikan" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
-                                <i class="fa-solid fa-graduation-cap w-8 group-hover:text-neon-cyan"></i> <span>EDUCATION_LOG</span>
+                            <a href="#pendidikan">
+                                <i></i> <span>EDUCATION_LOG</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#contact" class="nav-link flex items-center px-8 py-3.5 transition-all duration-300 hover:text-neon-cyan hover:bg-white/5 group border-r-2 border-transparent">
-                                <i class="fa-solid fa-link w-8 group-hover:text-neon-cyan"></i> <span>ESTABLISH_LINK</span>
+                            <a href="#contact">
+                                <i></i> <span>ESTABLISH_LINK</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
             </div>
 
-            <!-- Bagian Bawah Profil -->
-            <div class="px-8">
-                <div class="flex justify-around mb-6">
-                    <a href="https://github.com/muklis111" target="_blank" class="text-gray-500 hover:text-neon-cyan transition-colors" title="GitHub Node"><i class="fa-brands fa-github text-xl"></i></a>
-                    <a href="https://wa.me/6285222373394" target="_blank" class="text-gray-500 hover:text-neon-green transition-colors" title="WhatsApp Secure"><i class="fa-brands fa-whatsapp text-xl"></i></a>
-                    <a href="#" class="text-gray-500 hover:text-neon-pink transition-colors" title="Instagram Link"><i class="fa-brands fa-instagram text-xl"></i></a>
+            <div>
+                <div>
+                    <a href="https://github.com/muklis111" target="_blank" title="GitHub Node"><i></i></a>
+                    <a href="https://wa.me/6285222373394" target="_blank" title="WhatsApp Secure"><i></i></a>
+                    <a href="#" title="Instagram Link"><i></i></a>
                 </div>
-                <p class="text-[10px] font-mono text-gray-500 text-center uppercase tracking-tighter">System Version: 3.3.0-nexus</p>
-                <div class="mt-2 text-[9px] font-mono text-neon-cyan/40 text-center" id="server-time">UPTIME: 00:00:00</div>
+                <p>System Version: 3.3.0-nexus</p>
+                <div>UPTIME: 00:00:00</div>
             </div>
         </div>
     </header>
 
-    <!-- Area Dek Kendali Utama -->
-    <main class="xl:ml-[280px]">
+    <main>
         
-        <!-- Bagian Hero Utama -->
-        <section id="hero" class="relative h-screen flex flex-col items-center justify-center overflow-hidden grid-bg px-6">
-            <!-- Canvas untuk Visual Partikel Cybernetic -->
-            <canvas id="particles-canvas" class="absolute inset-0 w-full h-full object-cover opacity-60"></canvas>
-            
-            <div class="absolute inset-0 bg-gradient-to-b from-dark-void via-transparent to-dark-void"></div>
-            
-            <div class="absolute top-10 left-10 w-24 h-24 border-l-2 border-t-2 border-neon-cyan opacity-20 hidden md:block"></div>
-            <div class="absolute bottom-10 right-10 w-24 h-24 border-r-2 border-b-2 border-neon-purple opacity-20 hidden md:block"></div>
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <canvas></canvas>
+            <div></div>
+            <div></div>
+            <div></div>
 
-            <div class="relative z-10 text-center max-w-4xl w-full">
-                <p class="font-mono text-neon-cyan mb-4 tracking-[0.3em] uppercase animate-pulse text-xs sm:text-sm">Menginisialisasi Antarmuka Node...</p>
+            <div>
+                <p>Menginisialisasi Antarmuka Node...</p>
                 
-                <h1 class="text-4xl sm:text-6xl md:text-8xl font-heading font-black text-white mb-6 tracking-tighter">
-                    M.<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink">MUKLIS</span>
+                <h1>
+                    M.<span>MUKLIS</span>
                 </h1>
                 
-                <!-- Efek Mesin Ketik Interaktif -->
-                <div class="font-mono text-lg sm:text-xl md:text-2xl text-gray-400 min-h-[40px] flex items-center justify-center">
-                    $ <span id="typed-text" class="text-neon-cyan ml-2"></span><span class="typed-cursor">_</span>
+                <div>
+                    $ <span></span><span>_</span>
                 </div>
 
-                <!-- Simulator Terminal Interaktif -->
-                <div class="mt-10 mx-auto max-w-xl text-left bg-dark-card/95 border border-slate-800 rounded-lg shadow-2xl overflow-hidden font-mono text-xs sm:text-sm">
-                    <div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-slate-800">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
-                            <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
-                            <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                <div>
+                    <div>
+                        <div>
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
-                        <span class="text-gray-500 text-[10px] uppercase tracking-wider">MUKLIS_NEXUS_TERMINAL v2.1</span>
+                        <span>MUKLIS_NEXUS_TERMINAL v2.1</span>
                     </div>
-                    <div class="p-4 h-52 overflow-y-auto space-y-2 text-slate-300 scrollbar-thin" id="terminal-history">
+                    <div>
                         <div>Selamat datang di Portal Interaktif M. Muklis.</div>
-                        <div class="text-gray-500">Ketik <span class="text-neon-cyan font-bold">help</span> atau <span class="text-neon-purple font-bold">neofetch</span> untuk memulai eksplorasi sistem.</div>
+                        <div>Ketik <span>help</span> atau <span>neofetch</span> untuk memulai eksplorasi sistem.</div>
                     </div>
-                    <div class="flex items-center bg-slate-950 px-4 py-2.5 border-t border-slate-800">
-                        <span class="text-neon-green mr-2">guest@muklis-system:~$</span>
-                        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-neon-cyan flex-grow font-mono" placeholder="Ketik perintah..." autocomplete="off">
+                    <div>
+                        <span>guest@muklis-system:~$</span>
                     </div>
                 </div>
 
-                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="#projects" class="px-8 py-3 w-full sm:w-auto bg-transparent border border-neon-cyan text-neon-cyan font-heading uppercase tracking-widest hover:bg-neon-cyan hover:text-black transition-all duration-300 shadow-neon-cyan glow-hover text-center">Jelajahi Proyek</a>
-                    <a href="#contact" class="px-8 py-3 w-full sm:w-auto bg-transparent border border-neon-purple text-neon-purple font-heading uppercase tracking-widest hover:bg-neon-purple hover:text-white transition-all duration-300 text-center">Hubungkan Node</a>
+                <div>
+                    <a href="#projects">Jelajahi Proyek</a>
+                    <a href="#contact">Hubungkan Node</a>
                 </div>
             </div>
         </section>
 
-        <!-- Bagian Tentang Pengguna -->
-        <section id="about" class="py-24 px-6 md:px-16 lg:px-24 border-t border-slate-900 relative">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-neon-purple/5 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="max-w-4xl mx-auto">
-                <div class="flex items-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">About_System</h2>
-                    <div class="h-px flex-grow bg-gradient-to-r from-neon-cyan to-transparent"></div>
+        <!-- ABOUT SECTION -->
+        <section id="about">
+            <div></div>
+            <div>
+                <div>
+                    <h2>About_System</h2>
+                    <div></div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-                    <div class="md:col-span-2 space-y-6">
-                        <p class="font-body text-xl md:text-2xl text-gray-300 leading-relaxed italic">
-                            "Mahasiswa IT di <span class="text-neon-cyan text-shadow">Universitas Jabal Ghafur</span> yang berdedikasi tinggi dalam pengembangan platform digital dan sistem berbasis web."
+                <div>
+                    <div>
+                        <p>
+                            &quot;Mahasiswa IT di <span>Universitas Jabal Ghafur</span> yang berdedikasi tinggi dalam pengembangan platform digital dan sistem berbasis web.&quot;
                         </p>
-                        <p class="text-slate-400 font-body text-base leading-relaxed">
+                        <p>
                             Fokus utama saya mencakup rekayasa antarmuka pengguna interaktif (Frontend Development) serta perancangan tata kelola sistem informasi yang efisien. Memiliki ketertarikan tinggi dalam teknologi modern serta selalu siap beradaptasi dengan alur kerja teknologi baru.
                         </p>
-                        <div class="p-6 bg-dark-card/80 border-l-4 border-neon-purple rounded-r-lg shadow-xl backdrop-blur-sm">
-                            <p class="text-gray-300 font-mono text-sm leading-relaxed space-y-1">
-                                <span class="block text-neon-purple font-bold">&gt;_ HARDWARE_SPECIFICATION</span>
-                                <span class="block text-slate-400">&gt; Status: <span class="text-neon-green font-semibold">Developing_Innovation</span></span>
-                                <span class="block text-slate-400">&gt; Core: <span class="text-white">Web_Development, System_Analysis, UI/UX</span></span>
-                                <span class="block text-slate-400">&gt; Location: <span class="text-white">Sigli, Aceh, ID</span></span>
+                        <div>
+                            <p>
+                                <span>&gt;_ HARDWARE_SPECIFICATION</span>
+                                <span>&gt; Status: <span>Developing_Innovation</span></span>
+                                <span>&gt; Core: <span>Web_Development, System_Analysis, UI/UX</span></span>
+                                <span>&gt; Location: <span>Sigli, Aceh, ID</span></span>
                             </p>
                         </div>
                     </div>
                     
-                    <!-- Kartu Metrik Kemappan Siber -->
-                    <div class="bg-dark-card/90 border border-slate-800 p-6 rounded-xl font-mono text-xs shadow-xl backdrop-blur-sm relative">
-                        <div class="absolute -top-3 left-4 px-2 py-0.5 bg-neon-cyan/20 border border-neon-cyan text-neon-cyan text-[9px] uppercase font-bold tracking-widest">System Metrics</div>
-                        <h4 class="text-neon-cyan mb-6 border-b border-slate-800 pb-2 uppercase text-center font-heading tracking-wider">System Stats</h4>
-                        <ul class="space-y-4">
+                    <div>
+                        <div>System Metrics</div>
+                        <h4>System Stats</h4>
+                        <ul>
                             <li>
-                                <div class="flex justify-between mb-1"><span>Problem_Solving</span><span class="text-neon-cyan">85%</span></div>
-                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
-                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 85%"></div>
-                                </div>
+                                <div><span>Problem_Solving</span><span>85%</span></div>
+                                <div><div></div></div>
                             </li>
                             <li>
-                                <div class="flex justify-between mb-1"><span>Web_Development</span><span class="text-neon-cyan">92%</span></div>
-                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
-                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 92%"></div>
-                                </div>
+                                <div><span>Web_Development</span><span>92%</span></div>
+                                <div><div></div></div>
                             </li>
                             <li>
-                                <div class="flex justify-between mb-1"><span>Fast_Learning</span><span class="text-neon-cyan">95%</span></div>
-                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
-                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 95%"></div>
-                                </div>
+                                <div><span>Fast_Learning</span><span>95%</span></div>
+                                <div><div></div></div>
                             </li>
                             <li>
-                                <div class="flex justify-between mb-1"><span>Logic_Thinking</span><span class="text-neon-cyan">88%</span></div>
-                                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
-                                    <div class="bg-neon-cyan h-full rounded-full shadow-neon-cyan" style="width: 88%"></div>
-                                </div>
+                                <div><span>Logic_Thinking</span><span>88%</span></div>
+                                <div><div></div></div>
                             </li>
                         </ul>
                     </div>
@@ -309,134 +166,155 @@
             </div>
         </section>
 
-        <!-- Bagian Deployment Proyek Aktif -->
-        <section id="projects" class="py-24 px-6 md:px-16 lg:px-24 bg-dark-card/40 relative">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon-pink/2 to-transparent pointer-events-none"></div>
-            <div class="max-w-7xl mx-auto">
-                <div class="flex items-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Active_Deployments</h2>
-                    <div class="h-px flex-grow bg-gradient-to-r from-neon-pink to-transparent"></div>
+        <!-- DEPLOYMENTS / PROJECTS SECTION -->
+        <section id="projects">
+            <div></div>
+            <div>
+                <div>
+                    <h2>Active_Deployments</h2>
+                    <div></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+                <div>
+                    
                     <!-- Proyek 1: Platform M. MUKLIS -->
-                    <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-cyan transition-all duration-500 shadow-xl">
-                        <div class="aspect-video bg-slate-950 relative overflow-hidden flex items-center justify-center">
-                            <div class="absolute inset-0 grid-bg opacity-30"></div>
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/85"></div>
+                    <div>
+                        <div>
+                            <div></div>
+                            <div></div>
                             
-                            <div class="relative z-10 flex flex-col items-center p-6 text-center transition-transform duration-500 group-hover:scale-105">
-                                <div class="w-14 h-14 rounded-full bg-neon-cyan/10 flex items-center justify-center mb-3 border border-neon-cyan/20">
-                                    <i class="fa-solid fa-user-gear text-2xl text-neon-cyan opacity-80 group-hover:animate-pulse"></i>
-                                </div>
-                                <h3 class="text-xl font-heading font-bold text-white mb-1">Platform M. MUKLIS</h3>
-                                <p class="text-neon-cyan font-mono text-[10px] tracking-wider uppercase">Personal Digital Platform</p>
+                            <div>
+                                <div><i></i></div>
+                                <h3>Platform M. MUKLIS</h3>
+                                <p>Personal Digital Platform</p>
                             </div>
-                            <!-- Menu Aksi Melayang -->
-                            <div class="absolute inset-0 bg-black/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 z-20">
-                                <span class="text-neon-cyan font-mono text-[9px] tracking-[0.2em] mb-3 uppercase">AKSES JARINGAN DISETUJUI</span>
-                                <a href="https://muklis111.github.io/platform-M.MUKLIS/" target="_blank" class="px-5 py-2.5 bg-neon-cyan text-black font-heading font-bold uppercase text-[10px] tracking-widest flex items-center hover:bg-white transition-all shadow-neon-cyan btn-sound">
-                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Buka Portal
+                            
+                            <div>
+                                <span>AKSES JARINGAN DISETUJUI</span>
+                                <a href="https://muklis111.github.io/platform-M.MUKLIS/" target="_blank">
+                                    <i></i> Buka Portal
                                 </a>
                             </div>
                         </div>
-                        <div class="p-5 border-t border-slate-800/80 bg-slate-950/60">
-                            <div class="flex flex-wrap gap-1.5 mb-3">
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">HTML5</span>
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">CSS3</span>
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded">JS</span>
+                        <div>
+                            <div>
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>JS</span>
                             </div>
-                            <p class="text-gray-400 text-xs font-body leading-relaxed">Pusat integrasi identitas digital dan portofolio interaktif yang dikembangkan secara personal untuk menampilkan visualisasi web modern.</p>
+                            <p>Pusat integrasi identitas digital dan portofolio interaktif yang dikembangkan secara personal untuk menampilkan visualisasi web modern.</p>
                         </div>
                     </div>
 
-                    <!-- Proyek 2: Platform Web Geuchik -->
-                    <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-purple transition-all duration-500 shadow-xl">
-                        <div class="aspect-video bg-slate-950 relative overflow-hidden flex items-center justify-center">
-                            <div class="absolute inset-0 grid-bg opacity-30"></div>
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/85"></div>
+                    <!-- Proyek 2: Web Geuchik -->
+                    <div>
+                        <div>
+                            <div></div>
+                            <div></div>
                             
-                            <div class="relative z-10 flex flex-col items-center p-6 text-center transition-transform duration-500 group-hover:scale-105">
-                                <div class="w-14 h-14 rounded-full bg-neon-purple/10 flex items-center justify-center mb-3 border border-neon-purple/20">
-                                    <i class="fa-solid fa-landmark text-2xl text-neon-purple opacity-80 group-hover:animate-pulse"></i>
-                                </div>
-                                <h3 class="text-xl font-heading font-bold text-white mb-1">Web Geuchik</h3>
-                                <p class="text-neon-purple font-mono text-[10px] tracking-wider uppercase">Village Governance Management</p>
+                            <div>
+                                <div><i></i></div>
+                                <h3>Web Geuchik</h3>
+                                <p>Village Governance Management</p>
                             </div>
-                            <!-- Menu Aksi Melayang -->
-                            <div class="absolute inset-0 bg-black/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 z-20">
-                                <span class="text-neon-purple font-mono text-[9px] tracking-[0.2em] mb-3 uppercase">AKSES JARINGAN DISETUJUI</span>
-                                <a href="https://muklis111.github.io/platformwebgeuchik/" target="_blank" class="px-5 py-2.5 bg-neon-purple text-white font-heading font-bold uppercase text-[10px] tracking-widest flex items-center hover:bg-white hover:text-black transition-all shadow-neon-purple btn-sound">
-                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Buka Portal
+                            
+                            <div>
+                                <span>AKSES JARINGAN DISETUJUI</span>
+                                <a href="https://muklis111.github.io/platformwebgeuchik/" target="_blank">
+                                    <i></i> Buka Portal
                                 </a>
                             </div>
                         </div>
-                        <div class="p-5 border-t border-slate-800/80 bg-slate-950/60">
-                            <div class="flex flex-wrap gap-1.5 mb-3">
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Public Service</span>
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded">Tailwind</span>
+                        <div>
+                            <div>
+                                <span>Public Service</span>
+                                <span>Tailwind</span>
                             </div>
-                            <p class="text-gray-400 text-xs font-body leading-relaxed">Solusi platform web untuk membantu digitalisasi administrasi, manajemen berkas pelayanan publik, dan publikasi tingkat desa.</p>
+                            <p>Solusi platform web untuk membantu digitalisasi administrasi, manajemen berkas pelayanan publik, dan publikasi tingkat desa.</p>
                         </div>
                     </div>
 
                     <!-- Proyek 3: Platform JB Durian -->
-                    <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-green transition-all duration-500 shadow-xl">
-                        <div class="aspect-video bg-slate-950 relative overflow-hidden flex items-center justify-center">
-                            <div class="absolute inset-0 grid-bg opacity-30"></div>
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/85"></div>
+                    <div>
+                        <div>
+                            <div></div>
+                            <div></div>
                             
-                            <div class="relative z-10 flex flex-col items-center p-6 text-center transition-transform duration-500 group-hover:scale-105">
-                                <div class="w-14 h-14 rounded-full bg-neon-green/10 flex items-center justify-center mb-3 border border-neon-green/20">
-                                    <i class="fa-solid fa-seedling text-2xl text-neon-green opacity-80 group-hover:animate-pulse"></i>
-                                </div>
-                                <h3 class="text-xl font-heading font-bold text-white mb-1">Platform JB Durian</h3>
-                                <p class="text-neon-green font-mono text-[10px] tracking-wider uppercase">Agribusiness & Durian Hub</p>
+                            <div>
+                                <div><i></i></div>
+                                <h3>Platform JB Durian</h3>
+                                <p>Agribusiness &amp; Durian Hub</p>
                             </div>
-                            <!-- Menu Aksi Melayang -->
-                            <div class="absolute inset-0 bg-black/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 z-20">
-                                <span class="text-neon-green font-mono text-[9px] tracking-[0.2em] mb-3 uppercase">AKSES JARINGAN DISETUJUI</span>
-                                <a href="https://muklis111.github.io/platformjbdurian/" target="_blank" class="px-5 py-2.5 bg-neon-green text-black font-heading font-bold uppercase text-[10px] tracking-widest flex items-center hover:bg-white transition-all shadow-neon-green btn-sound">
-                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Buka Portal
+                            
+                            <div>
+                                <span>AKSES JARINGAN DISETUJUI</span>
+                                <a href="https://muklis111.github.io/platformjbdurian/" target="_blank">
+                                    <i></i> Buka Portal
                                 </a>
                             </div>
                         </div>
-                        <div class="p-5 border-t border-slate-800/80 bg-slate-950/60">
-                            <div class="flex flex-wrap gap-1.5 mb-3">
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-green/10 text-neon-green border border-neon-green/30 rounded">Agribusiness</span>
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-green/10 text-neon-green border border-neon-green/30 rounded">Horticulture</span>
+                        <div>
+                            <div>
+                                <span>Agribusiness</span>
+                                <span>Horticulture</span>
                             </div>
-                            <p class="text-gray-400 text-xs font-body leading-relaxed">Platform digital untuk tata kelola agribisnis durian, monitoring komoditas hortikultura lokal, serta simplifikasi rantai distribusi pasokan.</p>
+                            <p>Platform digital untuk tata kelola agribisnis durian, monitoring komoditas hortikultura lokal, serta simplifikasi rantai distribusi pasokan.</p>
                         </div>
                     </div>
 
-                    <!-- Proyek 4: Platform AI Nexus -->
-                    <div class="project-card relative group bg-dark-card border border-slate-800 rounded-xl overflow-hidden hover:border-neon-pink transition-all duration-500 shadow-xl">
-                        <div class="aspect-video bg-slate-950 relative overflow-hidden flex items-center justify-center">
-                            <div class="absolute inset-0 grid-bg opacity-30"></div>
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/85"></div>
+                    <!-- Proyek 4: Web Presensi (BARU DITAMBAHKAN) -->
+                    <div>
+                        <div>
+                            <div></div>
+                            <div></div>
                             
-                            <div class="relative z-10 flex flex-col items-center p-6 text-center transition-transform duration-500 group-hover:scale-105">
-                                <div class="w-14 h-14 rounded-full bg-neon-pink/10 flex items-center justify-center mb-3 border border-neon-pink/20">
-                                    <i class="fa-solid fa-brain text-2xl text-neon-pink opacity-80 group-hover:animate-pulse"></i>
-                                </div>
-                                <h3 class="text-xl font-heading font-bold text-white mb-1">Platform AI</h3>
-                                <p class="text-neon-pink font-mono text-[10px] tracking-wider uppercase">Artificial Intelligence Nexus</p>
+                            <div>
+                                <div><i></i></div>
+                                <h3>Web Presensi</h3>
+                                <p>Attendance Management System</p>
                             </div>
-                            <!-- Menu Aksi Melayang -->
-                            <div class="absolute inset-0 bg-black/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 z-20">
-                                <span class="text-neon-pink font-mono text-[9px] tracking-[0.2em] mb-3 uppercase">AKSES JARINGAN DISETUJUI</span>
-                                <a href="https://ai.infinityfree.me/" target="_blank" class="px-5 py-2.5 bg-neon-pink text-white font-heading font-bold uppercase text-[10px] tracking-widest flex items-center hover:bg-white hover:text-black transition-all shadow-neon-pink btn-sound">
-                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Buka Portal
+                            
+                            <div>
+                                <span>AKSES JARINGAN DISETUJUI</span>
+                                <a href="https://stoichkov-id.github.io/presensi/" target="_blank">
+                                    <i></i> Buka Portal
                                 </a>
                             </div>
                         </div>
-                        <div class="p-5 border-t border-slate-800/80 bg-slate-950/60">
-                            <div class="flex flex-wrap gap-1.5 mb-3">
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-pink/10 text-neon-pink border border-neon-pink/30 rounded">Artificial Intelligence</span>
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 bg-neon-pink/10 text-neon-pink border border-neon-pink/30 rounded">Smart Tool</span>
+                        <div>
+                            <div>
+                                <span>Attendance System</span>
+                                <span>Web Application</span>
                             </div>
-                            <p class="text-gray-400 text-xs font-body leading-relaxed">Portal siber masa depan yang menyediakan utilitas kecerdasan buatan, visualisasi komputasi pintar, dan asisten digital canggih.</p>
+                            <p>Sistem pencatatan dan pengelolaan presensi/kehadiran berbasis web secara terintegrasi dan responsif.</p>
+                        </div>
+                    </div>
+
+                    <!-- Proyek 5: Platform AI -->
+                    <div>
+                        <div>
+                            <div></div>
+                            <div></div>
+                            
+                            <div>
+                                <div><i></i></div>
+                                <h3>Platform AI</h3>
+                                <p>Artificial Intelligence Nexus</p>
+                            </div>
+                            
+                            <div>
+                                <span>AKSES JARINGAN DISETUJUI</span>
+                                <a href="https://ai.infinityfree.me/" target="_blank">
+                                    <i></i> Buka Portal
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span>Artificial Intelligence</span>
+                                <span>Smart Tool</span>
+                            </div>
+                            <p>Portal siber masa depan yang menyediakan utilitas kecerdasan buatan, visualisasi komputasi pintar, dan asisten digital canggih.</p>
                         </div>
                     </div>
 
@@ -444,511 +322,116 @@
             </div>
         </section>
 
-        <!-- Bagian Log Pendidikan (Timeline) -->
-        <section id="pendidikan" class="py-24 px-6 md:px-16 lg:px-24 bg-dark-card/10 relative overflow-hidden">
-            <div class="absolute bottom-0 right-0 w-80 h-80 bg-neon-cyan/5 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="max-w-4xl mx-auto relative z-10">
-                <div class="flex items-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mr-6 uppercase tracking-widest">Education_Log</h2>
-                    <div class="h-px flex-grow bg-gradient-to-r from-neon-purple to-transparent"></div>
+        <!-- EDUCATION SECTION -->
+        <section id="pendidikan">
+            <div></div>
+            <div>
+                <div>
+                    <h2>Education_Log</h2>
+                    <div></div>
                 </div>
 
-                <!-- Jalur Linimasa -->
-                <div class="space-y-0 border-l-2 border-slate-800 ml-4 md:ml-6">
-                    
-                    <!-- Node Universitas -->
-                    <div class="relative pl-10 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-cyan rounded-full -left-[9px] top-1.5 group-hover:bg-neon-cyan transition-colors shadow-neon-cyan"></div>
-                        <span class="font-mono text-neon-cyan text-xs tracking-tighter block mb-1">[ 2022 - SEKARANG ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-cyan transition-colors">Universitas Jabal Ghafur</h3>
-                        <p class="text-neon-purple font-mono text-sm uppercase mt-1">S1 Teknik Informatika</p>
-                        <p class="text-gray-400 mt-4 max-w-xl font-body leading-relaxed text-sm md:text-base">
+                <div>
+                    <div>
+                        <div></div>
+                        <span>[ 2022 - SEKARANG ]</span>
+                        <h3>Universitas Jabal Ghafur</h3>
+                        <p>S1 Teknik Informatika</p>
+                        <p>
                             Sedang menempuh pendidikan tinggi jenjang sarjana dengan fokus utama pada pemahaman arsitektur sistem informasi, pemrograman web lanjut, rekayasa kebutuhan perangkat lunak, serta jaringan komputer.
                         </p>
                     </div>
 
-                    <!-- Node SMK -->
-                    <div class="relative pl-10 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-purple rounded-full -left-[9px] top-1.5 group-hover:bg-neon-purple transition-colors shadow-neon-purple"></div>
-                        <span class="font-mono text-neon-purple text-xs tracking-tighter block mb-1">[ JENJANG MENENGAH ATAS ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-purple transition-colors">SMK Al Fitri Beureunuen</h3>
-                        <p class="text-gray-400 font-mono text-sm uppercase mt-1">Sekolah Menengah Kejuruan</p>
-                        <p class="text-gray-400 mt-4 max-w-xl font-body leading-relaxed text-sm md:text-base">
+                    <div>
+                        <div></div>
+                        <span>[ JENJANG MENENGAH ATAS ]</span>
+                        <h3>SMK Al Fitri Beureunuen</h3>
+                        <p>Sekolah Menengah Kejuruan</p>
+                        <p>
                             Mengembangkan kompetensi dasar ilmu teknologi dan kedisiplinan tingkat kejuruan sebagai landasan awal berkarir di bidang teknologi informasi.
                         </p>
                     </div>
 
-                    <!-- Node MTsN -->
-                    <div class="relative pl-10 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-pink rounded-full -left-[9px] top-1.5 group-hover:bg-neon-pink transition-colors shadow-neon-pink"></div>
-                        <span class="font-mono text-neon-pink text-xs tracking-tighter block mb-1">[ JENJANG MENENGAH PERTAMA ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-pink transition-colors">MTsN 6 Pidie</h3>
-                        <p class="text-gray-400 font-mono text-sm uppercase mt-1">Madrasah Tsanawiyah Negeri</p>
+                    <div>
+                        <div></div>
+                        <span>[ JENJANG MENENGAH PERTAMA ]</span>
+                        <h3>MTsN 6 Pidie</h3>
+                        <p>Madrasah Tsanawiyah Negeri</p>
                     </div>
 
-                    <!-- Node MIN -->
-                    <div class="relative pl-10 pb-12 group">
-                        <div class="absolute w-4 h-4 bg-dark-void border-2 border-neon-green rounded-full -left-[9px] top-1.5 group-hover:bg-neon-green transition-colors shadow-neon-green"></div>
-                        <span class="font-mono text-neon-green text-xs tracking-tighter block mb-1">[ JENJANG DASAR ]</span>
-                        <h3 class="text-2xl font-heading font-bold text-white mt-1 group-hover:text-neon-green transition-colors">MIN 7 Pidie</h3>
-                        <p class="text-gray-400 font-mono text-sm uppercase mt-1">Madrasah Ibtidaiyah Negeri</p>
+                    <div>
+                        <div></div>
+                        <span>[ JENJANG DASAR ]</span>
+                        <h3>MIN 7 Pidie</h3>
+                        <p>Madrasah Ibtidaiyah Negeri</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Bagian Hubungkan Node (Kontak) -->
-        <section id="contact" class="py-24 px-6 md:px-16 lg:px-24 bg-dark-card/50">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-heading font-black text-white mb-6 uppercase tracking-wider">Establish_Link</h2>
-                    <p class="text-gray-400 font-mono italic max-w-lg mx-auto">"Ready to integrate new projects, secure remote positions, or host tech collaborations."</p>
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+            <div>
+                <div>
+                    <h2>Establish_Link</h2>
+                    <p>&quot;Ready to integrate new projects, secure remote positions, or host tech collaborations.&quot;</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-12">
-                    <!-- Monitor Status Transmisi Data Handshake -->
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 font-mono text-xs flex flex-col justify-between shadow-2xl relative overflow-hidden">
-                        <div class="absolute -top-3 left-4 px-2 py-0.5 bg-neon-green/20 border border-neon-green text-neon-green text-[9px] uppercase font-bold tracking-widest">Connection Logs</div>
-                        <div class="space-y-3" id="handshake-logs">
-                            <p class="text-gray-500">// READY TO ESTABLISH TCP PORTAL</p>
-                            <p class="text-slate-400">&gt; Status: <span class="text-neon-green font-bold">PORT_LISTEN</span></p>
-                            <p class="text-slate-400">&gt; Host IP: <span class="text-neon-cyan">10.0.8.21</span></p>
-                            <p class="text-slate-400">&gt; Node Location: <span class="text-white">Sigli, Aceh, ID</span></p>
-                            <p class="text-slate-500">// Menunggu transmisi paket data pengunjung...</p>
-                        </div>
-                        <div class="mt-6 p-3 bg-dark-card/80 border border-slate-800 rounded flex items-center justify-between">
-                            <span class="text-[10px] text-gray-500 uppercase">Secure Handshake Encryption</span>
-                            <span class="text-neon-green font-bold text-[10px] animate-pulse">SSL_ONLINE</span>
-                        </div>
-                    </div>
-
-                    <!-- Saluran Kontak Resmi -->
-                    <div class="space-y-4 flex flex-col justify-between">
-                        <a href="mailto:mukhlismukklis2@gmail.com" class="p-6 border border-slate-800 bg-dark-void flex items-center space-x-4 hover:border-neon-cyan group transition-all rounded-lg shadow-xl btn-sound">
-                            <div class="w-12 h-12 rounded-full bg-neon-cyan/10 flex items-center justify-center border border-neon-cyan/20">
-                                <i class="fa-solid fa-envelope text-neon-cyan text-lg"></i>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-gray-500 font-mono uppercase">Secure Email Channel</span>
-                                <span class="text-gray-300 font-mono group-hover:text-white text-sm sm:text-base">mukhlismukklis2@gmail.com</span>
-                            </div>
-                        </a>
-                        <a href="https://wa.me/6285222373394" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center space-x-4 hover:border-neon-green group transition-all rounded-lg shadow-xl btn-sound">
-                            <div class="w-12 h-12 rounded-full bg-neon-green/10 flex items-center justify-center border border-neon-green/20">
-                                <i class="fa-brands fa-whatsapp text-neon-green text-lg"></i>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-gray-500 font-mono uppercase">WhatsApp Protocol</span>
-                                <span class="text-gray-300 font-mono group-hover:text-white text-sm sm:text-base">085222373394</span>
-                            </div>
-                        </a>
-                        <a href="https://github.com/muklis111" target="_blank" class="p-6 border border-slate-800 bg-dark-void flex items-center space-x-4 hover:border-neon-purple group transition-all rounded-lg shadow-xl btn-sound">
-                            <div class="w-12 h-12 rounded-full bg-neon-purple/10 flex items-center justify-center border border-neon-purple/20">
-                                <i class="fa-brands fa-github text-neon-purple text-lg"></i>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-gray-500 font-mono uppercase">Repository Hub</span>
-                                <span class="text-gray-300 font-mono group-hover:text-white text-sm sm:text-base">github.com/muklis111</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Formulir Simulasi Transmisi Handshake -->
-                <div class="mt-8 bg-dark-card/90 border border-slate-800 rounded-xl p-6 shadow-2xl relative">
-                    <h3 class="text-lg font-heading text-white mb-6 uppercase tracking-wider flex items-center gap-2">
-                        <span class="inline-block w-2.5 h-2.5 bg-neon-cyan rounded-full animate-pulse"></span>
-                        Send Direct Cyber-Transmission
-                    </h3>
-                    <form id="secure-transmission-form" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs text-gray-500 font-mono uppercase mb-2">Visitor Alias</label>
-                                <input type="text" id="visitor-name" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-neon-cyan transition-colors" placeholder="misal: Neo">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-500 font-mono uppercase mb-2">Comms Node Address (Email)</label>
-                                <input type="email" id="visitor-email" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-neon-cyan transition-colors" placeholder="misal: neo@matrix.net">
-                            </div>
+                <div>
+                    <div>
+                        <div>Connection Logs</div>
+                        <div>
+                            <p>// READY TO ESTABLISH TCP PORTAL</p>
+                            <p>&gt; Status: <span>PORT_LISTEN</span></p>
+                            <p>&gt; Host IP: <span>10.0.8.21</span></p>
+                            <p>&gt; Node Location: <span>Sigli, Aceh, ID</span></p>
+                            <p>// Menunggu transmisi paket data pengunjung...</p>
                         </div>
                         <div>
-                            <label class="block text-xs text-gray-500 font-mono uppercase mb-2">Encrypted Payload Content</label>
-                            <textarea id="visitor-msg" rows="4" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-neon-cyan transition-colors" placeholder="Masukkan pesan transmisi siber Anda..."></textarea>
+                            <span>Secure Handshake Encryption</span>
+                            <span>SSL_ONLINE</span>
                         </div>
-                        <div class="flex justify-end">
-                            <button type="submit" class="px-8 py-3 bg-neon-cyan text-black font-heading font-bold uppercase text-xs tracking-widest flex items-center hover:bg-white transition-all shadow-neon-cyan cursor-pointer btn-sound">
-                                <i class="fa-solid fa-paper-plane mr-2"></i> Transmit Packet
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+
+                    <div>
+                        <a href="mailto:mukhlismukklis2@gmail.com">
+                            <div><i></i></div>
+                            <div>
+                                <span>Secure Email Channel</span>
+                                <span>mukhlismukklis2@gmail.com</span>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/6285222373394" target="_blank">
+                            <div><i></i></div>
+                            <div>
+                                <span>WhatsApp Protocol</span>
+                                <span>085222373394</span>
+                            </div>
+                        </a>
+                        <a href="https://github.com/muklis111" target="_blank">
+                            <div><i></i></div>
+                            <div>
+                                <span>Repository Hub</span>
+                                <span>github.com/muklis111</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="mt-16 pt-16 border-t border-slate-900 text-center">
-                    <p class="text-gray-600 font-mono text-[10px] tracking-[0.5em] uppercase">Dirancang Dengan Kode & Neon Oleh M. Muklis</p>
+                <div>
+                    <h3>
+                        <span></span>
+                        Send Direct Cyber-Transmission
+                    </h3>
+                </div>
+
+                <div>
+                    <p>Dirancang Dengan Kode &amp; Neon Oleh M. Muklis</p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <script>
-        // --- SINTETISASI EFEK SUARA FUTURISTIK (WEB AUDIO API) ---
-        let audioMuted = false;
-        let audioCtx = null;
-
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        // Fungsi pembuat bunyi instan siber
-        function playTone(freq, type, duration, volume) {
-            if (audioMuted) return;
-            try {
-                initAudio();
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                
-                gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) {
-                console.warn("Audio API belum diizinkan oleh interaksi pengguna.", e);
-            }
-        }
-
-        // Suara klik navigasi
-        function playClickSound() {
-            playTone(800, 'sine', 0.1, 0.1);
-            setTimeout(() => playTone(1200, 'sine', 0.05, 0.05), 30);
-        }
-
-        // Suara ketukan tombol keyboard
-        function playKeypressSound() {
-            playTone(1500, 'triangle', 0.03, 0.05);
-        }
-
-        // Suara pengiriman sukses
-        function playSuccessSound() {
-            playTone(523.25, 'sine', 0.15, 0.15); // C5
-            setTimeout(() => playTone(659.25, 'sine', 0.15, 0.15), 100); // E5
-            setTimeout(() => playTone(783.99, 'sine', 0.15, 0.15), 200); // G5
-            setTimeout(() => playTone(1046.50, 'sine', 0.3, 0.2), 300); // C6
-        }
-
-        // Handler Mute/Unmute Suara
-        const soundToggle = document.getElementById('sound-toggle');
-        const soundIcon = document.getElementById('sound-icon');
-        const soundText = document.getElementById('sound-text');
-
-        soundToggle.addEventListener('click', () => {
-            audioMuted = !audioMuted;
-            if (audioMuted) {
-                soundIcon.className = "fa-solid fa-volume-xmark text-red-500";
-                soundText.innerText = "AUDIO MUTED";
-                soundText.className = "text-red-500";
-            } else {
-                initAudio();
-                soundIcon.className = "fa-solid fa-volume-high text-neon-cyan";
-                soundText.innerText = "AUDIO ON";
-                soundText.className = "text-neon-cyan";
-                playClickSound();
-            }
-        });
-
-        // Hubungkan suara ke seluruh tombol siber
-        document.querySelectorAll('.btn-sound, .nav-link, button').forEach(element => {
-            element.addEventListener('click', () => {
-                if(element.id !== 'sound-toggle') playClickSound();
-            });
-        });
-
-
-        // --- ENGINE EFEK PARTIKEL LATAR BELAKANG ---
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.speedY = -Math.random() * 0.6 - 0.2; // Bergerak ke atas perlahan
-                this.alpha = Math.random() * 0.5 + 0.2;
-                this.color = Math.random() > 0.5 ? '#00f3ff' : '#bc13fe';
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.y < 0) {
-                    this.y = canvas.height;
-                    this.x = Math.random() * canvas.width;
-                }
-                if (this.x < 0 || this.x > canvas.width) {
-                    this.speedX = -this.speedX;
-                }
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 6;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const particleCount = Math.min(60, Math.floor(canvas.width / 20));
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-        initParticles();
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-
-        // --- ENGINE EFEK MESIN KETIK LOOP ---
-        const phrases = [
-            "npm start platform-muklis",
-            "git clone web-geuchik",
-            "while(true) { develop_innovation(); }",
-            "Mahasiswa IT Universitas Jabal Ghafur",
-            "Frontend & Governance Dev Enthusiast",
-            "Welcome to the Nexus Command Deck."
-        ];
-        
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typedTextElement = document.getElementById('typed-text');
-
-        function typeLoop() {
-            const currentPhrase = phrases[phraseIndex];
-            const isEnd = !isDeleting && charIndex === currentPhrase.length;
-            const isStart = isDeleting && charIndex === 0;
-
-            if (isEnd) {
-                isDeleting = true;
-                setTimeout(typeLoop, 2000);
-                return;
-            }
-
-            if (isStart) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-            }
-
-            typedTextElement.innerHTML = currentPhrase.substring(0, charIndex);
-
-            if (isDeleting) {
-                charIndex--;
-            } else {
-                charIndex++;
-                if (Math.random() > 0.4) playKeypressSound(); // Efek suara ketikan siber acak
-            }
-
-            const speed = isDeleting ? 30 : 70;
-            setTimeout(typeLoop, speed);
-        }
-
-
-        // --- MANAJEMEN NAVIGASI SELULER (DRAWERS) ---
-        const toggleBtn = document.getElementById('mobile-nav-toggle');
-        const sidebar = document.getElementById('sidebar');
-        
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-            const icon = toggleBtn.querySelector('i');
-            icon.classList.toggle('fa-terminal');
-            icon.classList.toggle('fa-xmark');
-        });
-
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 1280) {
-                    sidebar.classList.add('-translate-x-full');
-                    const icon = toggleBtn.querySelector('i');
-                    icon.classList.add('fa-terminal');
-                    icon.classList.remove('fa-xmark');
-                }
-            });
-        });
-
-
-        // --- DETEKSI VIEWPORT & AKTIVASI NAVIGASI LINK ---
-        const sections = document.querySelectorAll('section');
-
-        window.addEventListener('scroll', () => {
-            let current = "";
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - 180) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-
-        // --- SIMULATOR TERMINAL INTERAKTIF ---
-        const terminalHistory = document.getElementById('terminal-history');
-        const terminalInput = document.getElementById('terminal-input');
-
-        const terminalCommands = {
-            help: "Available commands: <span class='text-neon-cyan'>about</span>, <span class='text-neon-cyan'>skills</span>, <span class='text-neon-cyan'>projects</span>, <span class='text-neon-cyan'>education</span>, <span class='text-neon-cyan'>contact</span>, <span class='text-neon-cyan'>neofetch</span>, <span class='text-neon-pink'>matrix</span>, <span class='text-neon-cyan'>clear</span>",
-            about: "M. Muklis - IT Student at Universitas Jabal Ghafur. Spesialisasi pada Web Engineering & Desain Sistem Interaktif.",
-            skills: "Problem Solving (85%), Web Dev (92%), Fast Learning (95%), Logic Thinking (88%).",
-            projects: "Deployments: [1] Platform M. MUKLIS, [2] Web Geuchik, [3] Platform JB Durian, [4] Platform AI. Ketik 'launch 1', 'launch 2', 'launch 3', atau 'launch 4' untuk membuka tautan.",
-            education: "Unigah Univ [2022 - Now] | SMK Al Fitri | MTsN 6 Pidie | MIN 7 Pidie",
-            contact: "Email: mukhlismukklis2@gmail.com | WA: +6285222373394 | GitHub: muklis111",
-            neofetch: `
-<div class="flex gap-4 items-center">
-  <div class="text-neon-cyan font-bold leading-none">
-    /\\_/\\<br>
-   ( o.o )<br>
-    &gt; ^ &lt;<br>
-  </div>
-  <div>
-    <span class="text-neon-cyan font-bold">muklis@nexus-node</span><br>
-    ------------------<br>
-    <span class="text-neon-purple">OS</span>: Jabal Ghafur Core OS v3.3.0<br>
-    <span class="text-neon-purple">KERNEL</span>: IT-Student-Kernel-2022<br>
-    <span class="text-neon-purple">UPTIME</span>: Node Active<br>
-    <span class="text-neon-purple">SHELL</span>: bash/zsh mock-nexus<br>
-    <span class="text-neon-purple">LOC</span>: Sigli, Aceh, ID
-  </div>
-</div>`,
-            matrix: "Mengaktifkan aliran Matrix digital... <br><span class='text-neon-green'>01001101 01010101 01001011 01001100 01001001 01010011</span>",
-            "launch 1": "Membuka Platform M. MUKLIS di tab baru...",
-            "launch 2": "Membuka Web Geuchik di tab baru...",
-            "launch 3": "Membuka Platform JB Durian di tab baru...",
-            "launch 4": "Membuka Platform AI Nexus di tab baru...",
-            clear: ""
-        };
-
-        terminalInput.addEventListener('keydown', function(e) {
-            playKeypressSound();
-            if (e.key === 'Enter') {
-                const query = this.value.trim().toLowerCase();
-                this.value = '';
-
-                if (query === '') return;
-
-                // Tampilkan input tamu ke histori log terminal
-                const userLine = document.createElement('div');
-                userLine.innerHTML = `<span class="text-neon-green">guest@muklis-system:~$</span> ${query}`;
-                terminalHistory.appendChild(userLine);
-
-                // Proses masukan perintah
-                const systemResponse = document.createElement('div');
-                if (query === 'clear') {
-                    terminalHistory.innerHTML = "<div>Welcome to M. Muklis Interactive Portal. type <span class='text-neon-cyan font-bold'>help</span> for scripts.</div>";
-                } else if (terminalCommands[query] !== undefined) {
-                    systemResponse.innerHTML = terminalCommands[query];
-                    terminalHistory.appendChild(systemResponse);
-                    
-                    // Eksekusi tautan buka halaman eksternal
-                    if (query === 'launch 1') window.open('https://muklis111.github.io/platform-M.MUKLIS/', '_blank');
-                    if (query === 'launch 2') window.open('https://muklis111.github.io/platformwebgeuchik/', '_blank');
-                    if (query === 'launch 3') window.open('https://muklis111.github.io/platformjbdurian/', '_blank');
-                    if (query === 'launch 4') window.open('https://ai.infinityfree.me/', '_blank');
-                } else {
-                    systemResponse.innerHTML = `<span class="text-red-500">Perintah tidak dikenal: "${query}".</span> Ketik <span class="text-neon-cyan">help</span> untuk melihat daftar skrip.`;
-                    terminalHistory.appendChild(systemResponse);
-                }
-
-                // Autoscroll ke baris terbawah log terminal
-                terminalHistory.scrollTop = terminalHistory.scrollHeight;
-            }
-        });
-
-
-        // --- FORM TRANSAKSI HANDSHAKE SIMULATOR ---
-        const transmissionForm = document.getElementById('secure-transmission-form');
-        const handshakeLogs = document.getElementById('handshake-logs');
-
-        transmissionForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const vName = document.getElementById('visitor-name').value;
-            const vEmail = document.getElementById('visitor-email').value;
-            const vMsg = document.getElementById('visitor-msg').value;
-
-            // Simulasi animasi pengiriman paket siber
-            handshakeLogs.innerHTML = `
-                <p class="text-gray-500">// MENGIRIM PAYLOAD KOMUNIKASI SIBER</p>
-                <p class="text-neon-cyan">&gt; Paket dibuat oleh: ${vName}</p>
-                <p class="text-neon-cyan">&gt; Node Alamat: ${vEmail}</p>
-                <p class="text-neon-pink animate-pulse">&gt; Melakukan enkripsi paket jabat tangan...</p>
-                <p class="text-slate-400">&gt; Bobot payload: ${vMsg.length} bytes</p>
-            `;
-
-            setTimeout(() => {
-                handshakeLogs.innerHTML += `
-                    <p class="text-neon-green font-bold">&gt; PAKET BERHASIL DIKIRIM (MOCK)</p>
-                    <p class="text-slate-500">// Proses Jabat Tangan Selesai.</p>
-                `;
-                playSuccessSound(); // Mainkan nada sukses
-                transmissionForm.reset();
-            }, 1800);
-        });
-
-
-        // --- PENGHITUNG WAKTU AKTIF REALTIME (UPTIME SYSTEM) ---
-        const systemTimeEl = document.getElementById('server-time');
-        let uptimeSec = 0;
-        function updateUptime() {
-            uptimeSec++;
-            const hours = Math.floor(uptimeSec / 3600).toString().padStart(2, '0');
-            const minutes = Math.floor((uptimeSec % 3600) / 60).toString().padStart(2, '0');
-            const seconds = (uptimeSec % 60).toString().padStart(2, '0');
-            systemTimeEl.innerHTML = `UPTIME: ${hours}:${minutes}:${seconds}`;
-        }
-        setInterval(updateUptime, 1000);
-
-
-        // --- AKTIVASI PADA SAAT WINDOW SELESAI DI-LOAD ---
-        window.onload = function() {
-            typeLoop();
-        }
-    </script>
 </body>
 </html>
